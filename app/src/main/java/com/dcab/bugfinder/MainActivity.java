@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     {
         super.onCreate(savedInstanceState);
         // Retrieve the content view that renders the map.
+        setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_maps);
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
