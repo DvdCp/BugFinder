@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/user_area"
+            android:icon="@drawable/icon_awesome_user_alt"
+            android:title="Area Utente" />
+
+        <item
+            android:id="@+id/bug_book"
+            android:icon="@drawable/icon_material_book"
+            android:title="Registro Insetti" />
+
+        <item
+            android:id="@+id/nav_bus"
+            android:icon="@drawable/icon_map_search"
+            android:title="Cerca Insetto" />
+
+        <item
+            android:id="@+id/nav_plane"
+            android:icon="@drawable/icon_awesome_cog"
+            android:title="Impostazioni" />
+    </group>
+</menu>
