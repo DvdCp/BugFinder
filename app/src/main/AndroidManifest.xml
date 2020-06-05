@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MapsActivity">
+        <activity android:name=".Report">
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"

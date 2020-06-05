@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textSpinnerItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAllCaps="false"
+    android:textColor="#127429"
+    android:padding="8dp"
+    android:width="300dp"
+    android:background="@drawable/circle_shape4"
+    android:textStyle="bold"
+    android:textSize="18dp">
+</TextView>

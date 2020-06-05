@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,7 +19,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,11 +55,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
         googleMap.addMarker(new MarkerOptions().position(rome).title("Marker in Rome").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-        googleMap.addMarker(new MarkerOptions().position(ischia).title("Marker in Ischia").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+        googleMap.addMarker(new MarkerOptions().position(ischia).title("Marker in Melfi").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(rome));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(6),400, null);
 
         // Constrain the camera target to the Adelaide bounds.
         googleMap.setLatLngBoundsForCameraTarget(boundsItaly);
+    }
+
+
+    public void newReport(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), Report.class);
+
+        startActivity(intent);
     }
 }
