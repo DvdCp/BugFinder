@@ -109,11 +109,21 @@
 
             <Spinner
                 android:id="@+id/specie"
-                android:layout_width="280dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginLeft="22dp"
-                android:popupBackground="#FFF" />
+                android:popupBackground="#FFF"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/formNewReport2"
+            android:layout_below="@id/formNewReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"

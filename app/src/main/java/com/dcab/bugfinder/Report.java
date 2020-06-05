@@ -1,9 +1,12 @@
 package com.dcab.bugfinder;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -14,6 +17,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 public class Report extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
     Spinner spinner;
+    LinearLayout formNewReport2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -22,8 +26,11 @@ public class Report extends AppCompatActivity implements AdapterView.OnItemSelec
         setContentView(R.layout.new_report);
 
         spinner = findViewById(R.id.specie);
+        formNewReport2 = findViewById(R.id.formNewReport2);
 
         spinner.setOnItemSelectedListener(this);
+        spinner.setOnTouchListener(spinnerOnTouch);
+        spinner.setOnKeyListener(spinnerOnKey);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.specie, R.layout.spinner_item);
@@ -37,7 +44,6 @@ public class Report extends AppCompatActivity implements AdapterView.OnItemSelec
     {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
-        Toast.makeText(getApplicationContext(), parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
     }
 
     public void onNothingSelected(AdapterView<?> parent)
@@ -49,4 +55,26 @@ public class Report extends AppCompatActivity implements AdapterView.OnItemSelec
     {
         finish();
     }
+
+    private View.OnTouchListener spinnerOnTouch = new View.OnTouchListener() {
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                formNewReport2.setVisibility(View.INVISIBLE);
+            }
+            return false;
+        }
+    };
+
+    private View.OnKeyListener spinnerOnKey = new View.OnKeyListener()
+    {
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                formNewReport2.setVisibility(View.INVISIBLE);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    };
+
 }
