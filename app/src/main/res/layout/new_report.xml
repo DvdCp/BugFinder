@@ -10,6 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/sparisciTutto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         <RelativeLayout
             android:id="@+id/RL2"
             android:layout_width="match_parent"
@@ -107,13 +112,20 @@
                 android:textSize="20dp"
                 android:textStyle="bold"/>
 
-            <Spinner
-                android:id="@+id/specie"
+            <Button
+                android:id="@+id/showSpecie"
+                android:text="Non identificata"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:textColor="#127429"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_gravity="start"
-                android:layout_marginLeft="22dp"
-                android:popupBackground="#FFF"/>
+                android:background="@drawable/circle_shape3"
+                android:layout_marginLeft="25dp"
+                android:paddingLeft="8dp" />
 
         </LinearLayout>
 

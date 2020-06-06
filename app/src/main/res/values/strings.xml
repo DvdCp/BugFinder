@@ -1,9 +1,3 @@
 <resources>
     <string name="app_name">BugFinder</string>
-    <string-array name="specie">
-        <item>Popilla Japonica</item>
-        <item>Mosca Bianca</item>
-        <item>Murgantia histrionica</item>
-        <item>Afidi</item>
-    </string-array>
 </resources>

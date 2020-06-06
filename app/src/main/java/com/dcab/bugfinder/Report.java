@@ -1,23 +1,23 @@
 package com.dcab.bugfinder;
 
+
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.PopupMenu;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.maps.SupportMapFragment;
 
-public class Report extends AppCompatActivity implements AdapterView.OnItemSelectedListener
+public class Report extends AppCompatActivity
 {
-    Spinner spinner;
+    Button specieButton;
     LinearLayout formNewReport2;
+    ImageView sparisciTutto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,56 +25,46 @@ public class Report extends AppCompatActivity implements AdapterView.OnItemSelec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_report);
 
-        spinner = findViewById(R.id.specie);
+        specieButton = findViewById(R.id.showSpecie);
         formNewReport2 = findViewById(R.id.formNewReport2);
+        sparisciTutto = findViewById(R.id.sparisciTutto);
 
-        spinner.setOnItemSelectedListener(this);
-        spinner.setOnTouchListener(spinnerOnTouch);
-        spinner.setOnKeyListener(spinnerOnKey);
+        specieButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(getApplicationContext(), specieButton);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.specie_menu, popup.getMenu());
+                formNewReport2.setVisibility(View.GONE);
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
+                {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        specieButton.setText(item.getTitle().toString());
+                        formNewReport2.setVisibility(View.VISIBLE);
+                        return true;
+                    }
+                });
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.specie, R.layout.spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-    }
+                popup.show(); //showing popup menu
+            }
+        }); //closing the setOnClickListener method
 
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-    {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-    }
 
-    public void onNothingSelected(AdapterView<?> parent)
-    {
-        // Another interface callback
+        sparisciTutto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                formNewReport2.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public void backToPrevious(View v)
     {
         finish();
     }
-
-    private View.OnTouchListener spinnerOnTouch = new View.OnTouchListener() {
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                formNewReport2.setVisibility(View.INVISIBLE);
-            }
-            return false;
-        }
-    };
-
-    private View.OnKeyListener spinnerOnKey = new View.OnKeyListener()
-    {
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
-                formNewReport2.setVisibility(View.INVISIBLE);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    };
 
 }

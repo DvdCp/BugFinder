@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/one"
+        android:title="Papilla Japonica"/>
+
+    <item
+        android:id="@+id/two"
+        android:title="Mosca Bianca"/>
+
+    <item
+        android:id="@+id/three"
+        android:title="Murgantia histrionica"/>
+
+    <item
+        android:id="@+id/four"
+        android:title="Afidi"/>
+
+    <item
+        android:id="@+id/five"
+        android:title="David incazzato"/>
+
+    <item
+        android:id="@+id/six"
+        android:title="De Bonis"/>
+
+</menu>
