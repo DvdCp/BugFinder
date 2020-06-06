@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -77,6 +78,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.setLatLngBoundsForCameraTarget(boundsItaly);
     }
 
+
+    public void onClickMenuItem(View v)
+    {
+        int optionID = v.getId();
+        Toast.makeText(getApplicationContext(), "Option ID: "+optionID, Toast.LENGTH_LONG ).show();
+        switch (optionID)
+        {
+            case R.id.user_area:
+                Toast.makeText(getApplicationContext(), "USER AREA: "+optionID, Toast.LENGTH_LONG ).show();
+                break;
+            case R.id.bug_book:
+                Toast.makeText(getApplicationContext(), "BUG BOOK: "+optionID, Toast.LENGTH_LONG ).show();
+                break;
+            case R.id.search_bug:
+                Toast.makeText(getApplicationContext(), "SEARCH BUG: "+optionID, Toast.LENGTH_LONG ).show();
+                break;
+            case R.id.settings:
+                Toast.makeText(getApplicationContext(), "SETTINGS: "+optionID, Toast.LENGTH_LONG ).show();
+                break;
+
+        }
+    }
 
     public void newReport(View v)
     {

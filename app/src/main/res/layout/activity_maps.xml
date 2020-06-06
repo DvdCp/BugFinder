@@ -52,7 +52,6 @@
         android:layout_gravity="start"
         android:background="@drawable/green_sidebar_rounded_background"
         >
-
         <!-- MENU -->
         <LinearLayout
             android:layout_width="wrap_content"
@@ -61,11 +60,14 @@
             android:layout_marginTop="200dp"
             android:layout_marginLeft="20dp"
             >
+
             <LinearLayout
+                android:id="@+id/user_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:onClick="onClickMenuItem">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -82,10 +84,12 @@
                     android:textSize="30dp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/bug_book"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:onClick="onClickMenuItem">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -102,10 +106,12 @@
                     android:textSize="29dp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/search_bug"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:onClick="onClickMenuItem">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -122,10 +128,12 @@
                     />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:onClick="onClickMenuItem">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -143,7 +151,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
 
     </com.google.android.material.navigation.NavigationView>
 
