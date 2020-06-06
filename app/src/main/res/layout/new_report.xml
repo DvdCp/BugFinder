@@ -2,11 +2,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true">
 
     <RelativeLayout
         android:id="@+id/RL1"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -93,12 +93,13 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/formNewReport"
+            android:id="@+id/bug_selector"
             android:layout_below="@id/RL2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="0dp"
+            android:paddingLeft="25dp"
             android:orientation="vertical">
 
             <TextView
@@ -108,7 +109,6 @@
                 android:layout_gravity="start"
                 android:textColor="@color/lightGreen"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="25dp"
                 android:textSize="20dp"
                 android:textStyle="bold"/>
 
@@ -124,14 +124,24 @@
                 android:layout_height="30dp"
                 android:layout_gravity="start"
                 android:background="@drawable/circle_shape3"
-                android:layout_marginLeft="25dp"
                 android:paddingLeft="8dp" />
 
         </LinearLayout>
 
+        <!-- HIDDEN SCROLLABLE LIST VIEW -->
+        <ListView
+            android:id="@+id/bug_selection_list"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/bug_list_background"
+            android:visibility="invisible"
+            android:layout_below="@id/bug_selector"
+            />
+
         <LinearLayout
-            android:id="@+id/formNewReport2"
-            android:layout_below="@id/formNewReport"
+            android:id="@+id/formNewReportBottom"
+            android:layout_below="@id/bug_selector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -202,7 +212,6 @@
                 android:background="@drawable/circle_shape3"
                 android:padding="8dp"
                 android:textColor="#127429"
-                android:hint="Inserisci qui eventuali note aggiuntive"
                 android:textColorHint="#127429"
                 android:textSize="12dp"
                 android:textStyle="normal"
