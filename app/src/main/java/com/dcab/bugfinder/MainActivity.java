@@ -1,15 +1,15 @@
 package com.dcab.bugfinder;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -18,9 +18,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
 {
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,13 +32,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Retrieve the content view that renders the map.
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_maps);
+        drawerLayout = findViewById(R.id.drawer_layout_main_screen);
+        navigationView = findViewById(R.id.nav_view_side_menu);
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
+    // HANDLING BACK BUTTON
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
+    }
 
+    @Override
     public void onMapReady(GoogleMap googleMap)
     {
         // Add a marker in Rome, Australia,
