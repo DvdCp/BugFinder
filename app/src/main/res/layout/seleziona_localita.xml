@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/RL1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/RL2"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/circle_shape"
+        android:layout_marginTop="-18dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/backarrow"
+                android:layout_marginLeft="20dp"
+                android:onClick="backToPrevious"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <EditText
+                    android:id="@+id/localitaSelection"
+                    android:text="Località..."
+                    android:textAllCaps="false"
+                    android:textAlignment="textStart"
+                    android:textColor="#127429"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_width="260dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/circle_shape5"
+                    android:layout_marginLeft="25dp"
+                    android:paddingLeft="8dp" />
+
+                <Button
+                    android:id="@+id/showSpecie"
+                    android:text="Seleziona"
+                    android:textAllCaps="false"
+                    android:textAlignment="textStart"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/circle_shape6"
+                    android:paddingLeft="8dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+</RelativeLayout>

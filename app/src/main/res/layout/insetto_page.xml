@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:id="@+id/RL1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightGreen">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/backarrow"
+                android:layout_marginLeft="10dp"
+                android:onClick="backToPrevious"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL1"
+            android:layout_below="@id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/logoIns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/insetto1"
+                android:layout_marginLeft="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coleottero Giapponese"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Popilia japonica"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="normal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL2"
+            android:layout_below="@id/LL1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:id="@+id/LL3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ordine: "
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coleotteri"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="normal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LL4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Provenienza: "
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Asia"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="normal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LL5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descrizione: "
+                    android:textColor="#fff"
+                    android:textSize="30dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Il coleottero giapponese (Popillia japonica Newman, 1841) è un coleottero appartenente alla famiglia degli Scarabeidi, originario del Giappone. Si tratta di una specie che infesta e distrugge tappeti erbosi, piante selvatiche, da frutto e ornamentali e la cui diffusione si sta ampliando"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="normal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LL6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Difese da attuare: "
+                    android:textColor="#fff"
+                    android:textSize="30dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Per riuscire a pianificare e migliorare le appropriate strategie di controllo del coleottero giapponese occorre innanzi tutto monitorare l'area di interesse per quanto riguarda la presenza sia delle larve sia degli individui adulti. Una stima delle dimensioni della popolazione di adulti presenti in una determinata area può essere ottenuta impiegando trappole composte da un serbatoio inferiore cilindrico e da un imbuto superiore alla base del quale si trova un'apertura. Il funzionamento di queste trappole si basa principalmente sull'uso di due esche chimiche."
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="normal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

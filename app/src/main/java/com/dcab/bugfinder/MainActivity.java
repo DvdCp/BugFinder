@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.makeText(getApplicationContext(), "USER AREA: "+optionID, Toast.LENGTH_LONG ).show();
                 break;
             case R.id.bug_book:
-                Toast.makeText(getApplicationContext(), "BUG BOOK: "+optionID, Toast.LENGTH_LONG ).show();
+                bugBook();
                 break;
             case R.id.search_bug:
                 Toast.makeText(getApplicationContext(), "SEARCH BUG: "+optionID, Toast.LENGTH_LONG ).show();
@@ -104,6 +104,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void newReport(View v)
     {
         Intent intent = new Intent(getApplicationContext(), Report.class);
+
+        startActivity(intent);
+    }
+
+
+    public void bugBook()
+    {
+        Intent intent = new Intent(getApplicationContext(), BugBook.class);
 
         startActivity(intent);
     }

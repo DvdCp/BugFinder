@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RL2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="-18dp">
+    
+    <RelativeLayout
+        android:id="@+id/action_bar_note_aggiuntive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note Aggiuntive"
+            android:textColor="@color/lightGreen"
+            android:padding="8dp"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_medium"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/note_aggiuntive"
+        android:layout_below="@+id/action_bar_note_aggiuntive"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_marginTop="-15dp"
+        android:textColor="#127429"
+        android:textColorHint="#127429"
+        android:textSize="20dp"
+        android:paddingLeft="8dp"
+        android:textStyle="bold"
+        android:hint="Ciao a tutti sono l'uomo ragno"
+        android:gravity="top|left"
+        android:fontFamily="@font/poppins_medium"/>
+
+    <Button
+        android:layout_below="@id/note_aggiuntive"
+        android:text="Conferma"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/circle_shape2"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

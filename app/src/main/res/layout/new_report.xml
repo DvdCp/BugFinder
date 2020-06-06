@@ -34,29 +34,36 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
 
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/backarrow"
-                        android:layout_marginLeft="10dp"
-                        android:layout_gravity="center"
-                        android:onClick="backToPrevious"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nuova Segnalazione"
-                        android:layout_gravity="center"
-                        android:textColor="#FFF"
-                        android:textSize="25dp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="47dp"/>
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/backarrow"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center"
+                            android:onClick="backToPrevious"/>
 
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/questionmark"
-                        android:layout_marginLeft="40dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nuova Segnalazione"
+                            android:layout_gravity="center"
+                            android:textColor="#FFF"
+                            android:textSize="25dp"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/questionmark"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="10dp"/>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
