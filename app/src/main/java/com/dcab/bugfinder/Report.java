@@ -1,7 +1,10 @@
 package com.dcab.bugfinder;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,7 +22,7 @@ public class Report extends AppCompatActivity
     private ArrayAdapter arrayAdapter;
     private ListView listView;
     private ArrayList bugList;
-    private Button specieButton;
+    private Button specieButton, reportButton;
     private LinearLayout formNewReportBottom;
     private ImageView sparisciTutto;
 
@@ -45,6 +48,7 @@ public class Report extends AppCompatActivity
         specieButton = findViewById(R.id.showSpecie);
         formNewReportBottom = findViewById(R.id.formNewReportBottom);
         sparisciTutto = findViewById(R.id.sparisciTutto);
+        reportButton = findViewById(R.id.reportButton);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,6 +77,32 @@ public class Report extends AppCompatActivity
                 specieButton.setBackground(getDrawable(R.drawable.circle_shape3));
                 formNewReportBottom.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
+            }
+        });
+
+        reportButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                final Dialog dialog = new Dialog(Report.this);
+                dialog.setContentView(R.layout.dialog_ok);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.setTitle("");
+                dialog.setCancelable(true);
+
+                new CountDownTimer(5000, 1000)
+                {
+                    @Override
+                    public void onTick(long millisUntilFinished) { }
+
+                    @Override
+                    public void onFinish() { dialog.dismiss(); }
+                }.start();
+
+                //now that the dialog is set up, it's time to show it
+                dialog.show();
             }
         });
     }

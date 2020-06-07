@@ -61,7 +61,7 @@
                             android:layout_height="35dp"
                             android:background="@drawable/questionmark"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginRight="10dp"/>
+                            android:layout_marginRight="15dp"/>
 
                     </RelativeLayout>
 
@@ -226,6 +226,7 @@
                 android:gravity="top|left" />
 
             <Button
+                android:id="@+id/reportButton"
                 android:text="Segnala"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
@@ -241,4 +242,5 @@
         </LinearLayout>
 
     </RelativeLayout>
+
 </ScrollView>

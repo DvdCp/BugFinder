@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,10 +21,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -68,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLngBounds boundsItaly = new LatLngBounds(new LatLng(40.666397,10.172663), new LatLng(42.0914, 15.120292)); //SUD, OVEST - NORD, EST
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        googleMap.setOnMarkerClickListener(MainActivity.this);
+        googleMap.setMinZoomPreference(2f);
 
         googleMap.addMarker(new MarkerOptions().position(rome).title("Marker in Rome").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
         googleMap.addMarker(new MarkerOptions().position(ischia).title("Marker in Melfi").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
@@ -82,11 +88,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onClickMenuItem(View v)
     {
         int optionID = v.getId();
-        Toast.makeText(getApplicationContext(), "Option ID: "+optionID, Toast.LENGTH_LONG ).show();
         switch (optionID)
         {
             case R.id.user_area:
-                Toast.makeText(getApplicationContext(), "USER AREA: "+optionID, Toast.LENGTH_LONG ).show();
+                login();
                 break;
             case R.id.bug_book:
                 bugBook();
@@ -115,4 +120,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         startActivity(intent);
     }
+
+
+    public void login()
+    {
+        Intent intent = new Intent(getApplicationContext(), Login.class);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker)
+    {
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.insetto_page);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.setTitle("");
+        dialog.setCancelable(true);
+
+        //set up button
+        ImageView backArrow = (ImageView) dialog.findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.dismiss();
+            }
+        });
+        //now that the dialog is set up, it's time to show it
+        dialog.show();
+
+        return true;
+    }
+
 }

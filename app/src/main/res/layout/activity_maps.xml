@@ -8,8 +8,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
-    tools:openDrawer="start"
-    >
+    tools:openDrawer="start">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -50,16 +50,15 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/green_sidebar_rounded_background"
-        >
+        android:background="@drawable/green_sidebar_rounded_background">
+
         <!-- MENU -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="200dp"
-            android:layout_marginLeft="20dp"
-            >
+            android:layout_marginTop="150dp"
+            android:layout_marginLeft="15dp">
 
             <LinearLayout
                 android:id="@+id/user_area"
@@ -70,8 +69,8 @@
                 android:onClick="onClickMenuItem">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/icon_awesome_user_alt"
                     android:layout_marginRight="10dp"/>
 
@@ -81,8 +80,10 @@
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="#FFF"
                     android:text="Area Utente"
-                    android:textSize="30dp" />
+                    android:textSize="30dp"/>
+
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/bug_book"
                 android:layout_width="wrap_content"
@@ -92,8 +93,8 @@
                 android:onClick="onClickMenuItem">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/icon_material_book"
                     android:layout_marginRight="10dp"/>
 
@@ -104,7 +105,9 @@
                     android:text="Registro Insetti"
                     android:textColor="#FFF"
                     android:textSize="29dp" />
+
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/search_bug"
                 android:layout_width="wrap_content"
@@ -114,19 +117,21 @@
                 android:onClick="onClickMenuItem">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/icon_map_search"
                     android:layout_marginRight="10dp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cerca Insetto"
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="#FFF"
-                    android:textSize="30dp"
-                    />
+                    android:textSize="30dp" />
+
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/settings"
                 android:layout_width="wrap_content"
@@ -136,18 +141,19 @@
                 android:onClick="onClickMenuItem">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/icon_awesome_cog"
                     android:layout_marginRight="10dp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Impostazioni"
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="#FFF"
-                    android:textSize="30dp"
-                    />
+                    android:textSize="30dp" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -1,0 +1,17 @@
+package com.dcab.bugfinder;
+
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Bug extends AppCompatActivity
+{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.insetto_page);
+    }
+
+}
