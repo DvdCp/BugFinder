@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private TextView bugTypeFULL, bugName, bugType, bugOrdine, bugProvenienza, bugDescription, bugDifese;
+    private TextView bugTypeFULL, bugName, bugOrdine, bugProvenienza, bugDescription, bugDifese;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng rome = new LatLng(41.981807, 12.0819104);
         LatLng ischia = new LatLng(40.953945, 15.624557);
 
-        int height = 40;
-        int width = 40;
+        int height = 70;
+        int width = 70;
 
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.bug_rilevation);
         Bitmap b = bitmapdraw.getBitmap();

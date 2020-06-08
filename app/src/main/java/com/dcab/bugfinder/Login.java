@@ -1,6 +1,8 @@
 package com.dcab.bugfinder;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,8 +11,10 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +34,8 @@ public class Login extends AppCompatActivity
         loginButton = findViewById(R.id.loginButton);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        leftArrow = findViewById(R.id.left_arrow);
+
 
         //Listeners
         registerButton.setOnClickListener(new View.OnClickListener()
@@ -45,9 +51,18 @@ public class Login extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                login();
+                login(v);
             }
         });
+        leftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                onBackPressed();
+            }
+        });
+
+        leftArrow.clearFocus();
 
         //Database Part
         dbHelper = new DatabaseHelper(this);
@@ -64,8 +79,13 @@ public class Login extends AppCompatActivity
     }
 
 
-    public Cursor login()
+    public Cursor login(View v)
     {
+        username.clearFocus();
+        password.clearFocus();
+
+        hideKeyboardFrom(getApplicationContext(), v);
+
         String valore = username.getText().toString();
         String valore2 = password.getText().toString();
         Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ? AND password = ?", new String[] {valore, valore2});
@@ -107,10 +127,16 @@ public class Login extends AppCompatActivity
     }
 
 
+    public static void hideKeyboardFrom(Context context, View view)
+    {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     private Button registerButton, loginButton;
     private EditText username, password;
     private TextView okTW;
+    private ImageView leftArrow;
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
 

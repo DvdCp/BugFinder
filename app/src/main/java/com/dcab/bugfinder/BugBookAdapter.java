@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class BugBookAdapter extends ArrayAdapter<BugBean>
+public class BugBookAdapter extends ArrayAdapter<BugUIBean>
 {
 
-    public BugBookAdapter(Context context, int resource, ArrayList<BugBean> listaInsetti)
+    public BugBookAdapter(Context context, int resource, ArrayList<BugUIBean> listaInsetti)
     {
         super(context, resource, listaInsetti);
         resourceID = resource;
@@ -29,7 +29,7 @@ public class BugBookAdapter extends ArrayAdapter<BugBean>
         if(v == null)
             v = inflater.inflate(R.layout.insetto_layout, null);
 
-        BugBean bug = getItem(position);
+        BugUIBean bug = getItem(position);
 
         nome = v.findViewById(R.id.nomeInsetto);
         logo = v.findViewById(R.id.logoInsetto);
@@ -46,14 +46,14 @@ public class BugBookAdapter extends ArrayAdapter<BugBean>
     }
 
 
-    public ArrayList<BugBean> getRegistroInsetti() { return registroInsetti; }
+    public ArrayList<BugUIBean> getRegistroInsetti() { return registroInsetti; }
 
 
 
     private LayoutInflater inflater;
     private int resourceID;
-    private ArrayList<BugBean> registroInsetti;
-    private BugBean bug;
+    private ArrayList<BugUIBean> registroInsetti;
+    private BugUIBean bug;
     private TextView nome;
     private ImageView logo;
 

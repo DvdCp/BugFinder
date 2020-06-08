@@ -21,7 +21,9 @@
         </activity>
         <activity android:name=".BugBook">
         </activity>
-        <activity android:name=".LocationPicker">
+        <activity android:name=".Login">
+        </activity>
+        <activity android:name=".Register">
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"

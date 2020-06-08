@@ -1,15 +1,18 @@
 package com.dcab.bugfinder;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +33,8 @@ public class Register extends AppCompatActivity
         registerUsername= findViewById(R.id.registerUsername);
         registerPassword = findViewById(R.id.registerPassword);
         registratiButton = findViewById(R.id.registratiButton);
+        leftArrow = findViewById(R.id.left_arrow);
+
 
         //Listeners
         registratiButton.setOnClickListener(new View.OnClickListener()
@@ -37,9 +42,19 @@ public class Register extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                register();
+                register(v);
             }
         });
+
+        leftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                onBackPressed();
+            }
+        });
+
+        leftArrow.clearFocus();
 
         dbHelper = new DatabaseHelper(this);
 
@@ -48,8 +63,10 @@ public class Register extends AppCompatActivity
     }
 
 
-    public void register()
+    public void register(View v)
     {
+        hideKeyboardFrom(getApplicationContext(), v);
+
         ContentValues values = new ContentValues();
 
         values.put(SchemaDB.Tavola.COLUMN_NAME, registerNome.getText().toString());
@@ -75,17 +92,26 @@ public class Register extends AppCompatActivity
             public void onTick(long millisUntilFinished) { }
 
             @Override
-            public void onFinish() { dialog.dismiss(); }
+            public void onFinish() { dialog.dismiss(); onBackPressed(); }
         }.start();
 
         //now that the dialog is set up, it's time to show it
         dialog.show();
     }
 
-    private SQLiteDatabase db;
-    private DatabaseHelper dbHelper;
+
+    public static void hideKeyboardFrom(Context context, View view)
+    {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+
+    private ImageView leftArrow;
     private EditText registerNome, registerCognome, registerEmail, registerUsername, registerPassword;
     private Button registratiButton;
     private TextView okTW;
+    private SQLiteDatabase db;
+    private DatabaseHelper dbHelper;
 
 }
