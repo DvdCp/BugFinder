@@ -11,12 +11,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class Report extends AppCompatActivity
 {
+    // using to identify request in LocationPicker.java
+    public static int LOCATION_REQUEST_CODE = 2;
+
     private ArrayAdapter arrayAdapter;
     private ListView listView;
     private ArrayList bugList;
@@ -35,6 +39,7 @@ public class Report extends AppCompatActivity
         // ----- lista di prova
         //---- bisogno implementare il retrieve da una BD
         listView = findViewById(R.id.bug_selection_list);
+        locationButton = findViewById(R.id.locationSelectorButton);
         bugList = new ArrayList();
         bugList.add("prova1");
         bugList.add("prova2");
@@ -93,7 +98,15 @@ public class Report extends AppCompatActivity
     public void onLocationSelectorButtonClick(View view)
     {
         Intent intent = new Intent(getApplicationContext(), LocationPicker.class);
-        startActivity(intent);
+        startActivityForResult(intent,LOCATION_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == LOCATION_REQUEST_CODE && resultCode == RESULT_OK)
+            locationButton.setText(data.getStringExtra("selectedLocation"));
+
     }
 
     @Override

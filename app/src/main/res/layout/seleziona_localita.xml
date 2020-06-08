@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RL1"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<fragment
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/map"
-        tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
--->
+        tools:context=".MapsActivity" />
 
     <RelativeLayout
         android:id="@+id/RL2"
@@ -41,9 +39,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
 
-                <EditText
+                <TextView
                     android:id="@+id/localitaSelection"
                     android:hint="Località..."
+                    android:lines="1"
                     android:textColorHint="#127429"
                     android:textAllCaps="false"
                     android:textAlignment="textStart"
@@ -54,10 +53,11 @@
                     android:layout_height="40dp"
                     android:background="@drawable/circle_shape5"
                     android:layout_marginLeft="25dp"
-                    android:paddingLeft="8dp" />
+                    android:paddingLeft="8dp"
+                    android:paddingTop="3dp"/>
 
                 <Button
-                    android:id="@+id/showSpecie"
+                    android:id="@+id/selezionaSpecie"
                     android:text="Seleziona"
                     android:textAllCaps="false"
                     android:textAlignment="textStart"
@@ -67,7 +67,8 @@
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:background="@drawable/circle_shape6"
-                    android:paddingLeft="8dp" />
+                    android:paddingLeft="8dp"
+                    android:onClick="onSelectButtonClick"/>
 
             </LinearLayout>
 
