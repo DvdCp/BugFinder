@@ -114,7 +114,7 @@ public class Login extends AppCompatActivity
                 public void onTick(long millisUntilFinished) { }
 
                 @Override
-                public void onFinish() { dialog.dismiss(); }
+                public void onFinish() { dialog.dismiss(); onBackPressed(); }
             }.start();
 
             //now that the dialog is set up, it's time to show it

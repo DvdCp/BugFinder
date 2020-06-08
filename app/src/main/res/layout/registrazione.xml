@@ -68,7 +68,7 @@
 
                 <EditText
                     android:id="@+id/registerName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@null"
@@ -79,7 +79,7 @@
                     android:layout_marginLeft="20dp"
                     android:inputType="text"
                     android:textColorHint="@color/lightGreen"
-                    android:textSize="27sp"
+                    android:textSize="23sp"
                     android:textStyle="bold"
                     android:textColor="@color/lightGreen" />
 
@@ -105,7 +105,7 @@
 
                 <EditText
                     android:id="@+id/registerSurname"
-                    android:layout_width="wrap_content"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@null"
@@ -116,7 +116,7 @@
                     android:layout_marginLeft="20dp"
                     android:inputType="text"
                     android:textColorHint="@color/lightGreen"
-                    android:textSize="27dp"
+                    android:textSize="23sp"
                     android:textStyle="bold"
                     android:textColor="@color/lightGreen" />
 
@@ -142,7 +142,7 @@
 
                 <EditText
                     android:id="@+id/registerEmail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@null"
@@ -153,7 +153,7 @@
                     android:maxLines="1"
                     android:layout_marginLeft="20dp"
                     android:textColorHint="@color/lightGreen"
-                    android:textSize="25dp"
+                    android:textSize="23sp"
                     android:textStyle="bold"
                     android:textColor="@color/lightGreen" />
 
@@ -179,7 +179,7 @@
 
                 <EditText
                     android:id="@+id/registerUsername"
-                    android:layout_width="wrap_content"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@null"
@@ -190,7 +190,7 @@
                     android:layout_marginLeft="20dp"
                     android:inputType="text"
                     android:textColorHint="@color/lightGreen"
-                    android:textSize="27dp"
+                    android:textSize="23sp"
                     android:textStyle="bold"
                     android:textColor="@color/lightGreen" />
 
@@ -216,7 +216,7 @@
 
                 <EditText
                     android:id="@+id/registerPassword"
-                    android:layout_width="wrap_content"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@null"
@@ -227,7 +227,7 @@
                     android:layout_marginLeft="20dp"
                     android:inputType="text"
                     android:textColorHint="@color/lightGreen"
-                    android:textSize="27dp"
+                    android:textSize="23sp"
                     android:textStyle="bold"
                     android:textColor="@color/lightGreen" />
 
