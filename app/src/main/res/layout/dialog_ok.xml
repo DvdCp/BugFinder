@@ -18,7 +18,7 @@
             android:layout_centerHorizontal="true"
             android:paddingTop="60dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Segnalazione inviata"
+            android:text=""
             android:textStyle="bold"
             android:textSize="25dp"
             android:textColor="#fff"/>

@@ -1,6 +1,9 @@
 package com.dcab.bugfinder;
 
 import android.app.Dialog;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -25,6 +28,9 @@ public class Report extends AppCompatActivity
     private Button specieButton, reportButton;
     private LinearLayout formNewReportBottom;
     private ImageView sparisciTutto;
+    private TextView okTW;
+    private SQLiteDatabase db;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +55,11 @@ public class Report extends AppCompatActivity
         formNewReportBottom = findViewById(R.id.formNewReportBottom);
         sparisciTutto = findViewById(R.id.sparisciTutto);
         reportButton = findViewById(R.id.reportButton);
+
+        //Database Part
+        dbHelper = new DatabaseHelper(this);
+
+        db = dbHelper.getReadableDatabase();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -85,27 +96,48 @@ public class Report extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                final Dialog dialog = new Dialog(Report.this);
-                dialog.setContentView(R.layout.dialog_ok);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                dialog.setTitle("");
-                dialog.setCancelable(true);
-
-                new CountDownTimer(5000, 1000)
-                {
-                    @Override
-                    public void onTick(long millisUntilFinished) { }
-
-                    @Override
-                    public void onFinish() { dialog.dismiss(); }
-                }.start();
-
-                //now that the dialog is set up, it's time to show it
-                dialog.show();
+                sendReport();
             }
         });
     }
+
+
+    public void sendReport()
+    {
+        //INSERIRE CODICE PER CATTURA PARAMETRI
+        //ContentValues values = new ContentValues();
+
+        /*values.put(SchemaDB.Tavola.COLUMN_NAME, nomeVariabile.getText().toString());
+        values.put(SchemaDB.Tavola.COLUMN_SURNAME, nomeVariabile.getText().toString());
+        values.put(SchemaDB.Tavola.COLUMN_EMAIL, nomeVariabile.getText().toString());
+        values.put(SchemaDB.Tavola.COLUMN_USERNAME, nomeVariabile.getText().toString());
+        values.put(SchemaDB.Tavola.COLUMN_PASSWORD, nomeVariabile.getText().toString());*/
+
+        //db.insert(SchemaDB.Tavola.TABLE_NAME, null, values);
+
+
+        final Dialog dialog = new Dialog(Report.this);
+        dialog.setContentView(R.layout.dialog_ok);
+        okTW = dialog.findViewById(R.id.okTW);
+        okTW.setText("Segnalazione inviata");
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setTitle("");
+        dialog.setCancelable(true);
+
+        new CountDownTimer(3000, 1000)
+        {
+            @Override
+            public void onTick(long millisUntilFinished) { }
+
+            @Override
+            public void onFinish() { dialog.dismiss(); }
+        }.start();
+
+        //now that the dialog is set up, it's time to show it
+        dialog.show();
+    }
+
 
     public void backToPrevious(View v)
     {

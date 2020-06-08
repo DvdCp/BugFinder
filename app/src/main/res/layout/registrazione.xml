@@ -66,6 +66,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <EditText
+                    android:id="@+id/registerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -101,6 +102,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <EditText
+                    android:id="@+id/registerSurname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -136,17 +138,19 @@
                     android:layout_marginLeft="10dp"/>
 
                 <EditText
+                    android:id="@+id/registerEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@null"
                     android:padding="0dp"
                     android:hint="E-mail"
+                    android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
                     android:layout_marginLeft="20dp"
                     android:textColorHint="@color/lightGreen"
-                    android:textSize="27dp"
+                    android:textSize="25dp"
                     android:textStyle="bold"
                     android:textColor="@color/lightGreen" />
 
@@ -171,6 +175,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <EditText
+                    android:id="@+id/registerUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -206,6 +211,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <EditText
+                    android:id="@+id/registerPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

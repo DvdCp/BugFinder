@@ -1,9 +1,18 @@
 package com.dcab.bugfinder;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,8 +25,13 @@ public class Login extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        //Riferimenti
         registerButton = findViewById(R.id.registerButton);
+        loginButton = findViewById(R.id.loginButton);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
 
+        //Listeners
         registerButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -26,6 +40,19 @@ public class Login extends AppCompatActivity
                 registerAccount();
             }
         });
+        loginButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                login();
+            }
+        });
+
+        //Database Part
+        dbHelper = new DatabaseHelper(this);
+
+        db = dbHelper.getReadableDatabase();
     }
 
 
@@ -36,6 +63,55 @@ public class Login extends AppCompatActivity
         startActivity(intent);
     }
 
-    Button registerButton;
+
+    public Cursor login()
+    {
+        String valore = username.getText().toString();
+        String valore2 = password.getText().toString();
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ? AND password = ?", new String[] {valore, valore2});
+
+        if(cursor != null && cursor.moveToFirst())
+        {
+
+            String nome = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[1]));
+            String cognome = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[2]));
+            String email = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[3]));
+            String username = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[4]));
+            String password = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[5]));
+
+            final Dialog dialog = new Dialog(Login.this);
+            dialog.setContentView(R.layout.dialog_ok);
+            okTW = dialog.findViewById(R.id.okTW);
+            okTW.setText("Login effettuato");
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.setTitle("");
+            dialog.setCancelable(true);
+
+            new CountDownTimer(5000, 1000)
+            {
+                @Override
+                public void onTick(long millisUntilFinished) { }
+
+                @Override
+                public void onFinish() { dialog.dismiss(); }
+            }.start();
+
+            //now that the dialog is set up, it's time to show it
+            dialog.show();
+
+            return cursor;
+        } else {
+            return null;
+        }
+    }
+
+
+
+    private Button registerButton, loginButton;
+    private EditText username, password;
+    private TextView okTW;
+    private SQLiteDatabase db;
+    private DatabaseHelper dbHelper;
 
 }

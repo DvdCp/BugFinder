@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private TextView bugTypeFULL, bugName, bugType, bugOrdine, bugProvenienza, bugDescription, bugDifese;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -75,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.setOnMarkerClickListener(MainActivity.this);
         googleMap.setMinZoomPreference(2f);
 
-        googleMap.addMarker(new MarkerOptions().position(rome).title("Marker in Rome").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-        googleMap.addMarker(new MarkerOptions().position(ischia).title("Marker in Melfi").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+        googleMap.addMarker(new MarkerOptions().position(rome).title("Ciao1").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+        googleMap.addMarker(new MarkerOptions().position(ischia).title("Ciao4").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(rome));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(6),400, null);
 
@@ -132,8 +134,41 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onMarkerClick(Marker marker)
     {
+        BugUIBean bugBean = null;
+
+        for(BugUIBean bugUIBean : bugBeans)
+        {
+            if(bugUIBean.getNome().equals(marker.getTitle()))
+            {
+                bugBean = new BugUIBean();
+
+                bugBean.setNome(bugUIBean.nome);
+                bugBean.setDescription(bugUIBean.description);
+                bugBean.setDifese(bugUIBean.difese);
+                bugBean.setOrdine(bugUIBean.ordine);
+                bugBean.setProvenienza(bugUIBean.provenienza);
+                bugBean.setType(bugUIBean.type);
+            }
+        }
+
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.insetto_page);
+
+        bugTypeFULL = dialog.findViewById(R.id.bugTypeFULL);
+        bugName = dialog.findViewById(R.id.bugName);
+        bugOrdine = dialog.findViewById(R.id.bugOrdine);
+        bugProvenienza = dialog.findViewById(R.id.bugProvenienza);
+        bugDescription = dialog.findViewById(R.id.bugDescription);
+        bugDifese = dialog.findViewById(R.id.bugDifese);
+
+        bugTypeFULL.setText(bugBean.getType());
+        bugName.setText(bugBean.getNome());
+        bugOrdine.setText(bugBean.getOrdine());
+        bugProvenienza.setText(bugBean.getProvenienza());
+        bugDescription.setText(bugBean.getDescription());
+        bugDifese.setText(bugBean.getDifese());
+
+
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.setTitle("");
         dialog.setCancelable(true);
@@ -153,5 +188,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         return true;
     }
+
+
+    BugUIBean[] bugBeans = {
+            new BugUIBean("Ciao1", "Ciao1", "Ciao1", "Ciao1", "Ciao1", "Ciao1"),
+            new BugUIBean("Ciao2", "Ciao2", "Ciao2", "Ciao2", "Ciao2", "Ciao2"),
+            new BugUIBean("Ciao3", "Ciao3", "Ciao1", "Ciao3", "Ciao3", "Ciao3"),
+            new BugUIBean("Ciao4", "Ciao4", "Ciao4", "Ciao4", "Ciao4", "Ciao4"),
+            new BugUIBean("Ciao5", "Ciao5", "Ciao5", "Ciao5", "Ciao5", "Ciao5"),
+            new BugUIBean("Ciao6", "Ciao6", "Ciao6", "Ciao6", "Ciao6", "Ciao6"),
+            new BugUIBean("Ciao7", "Ciao7", "Ciao7", "Ciao7", "Ciao7", "Ciao7"),
+    };
 
 }
