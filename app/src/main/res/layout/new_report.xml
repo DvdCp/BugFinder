@@ -131,7 +131,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="start"
                 android:background="@drawable/circle_shape3"
-                android:paddingLeft="8dp" />
+                /><!--padding-->
 
         </LinearLayout>
 
@@ -139,7 +139,7 @@
         <ListView
             android:id="@+id/bug_selection_list"
             android:layout_width="250dp"
-            android:layout_height="200dp"
+            android:layout_height="390dp"
             android:layout_marginLeft="25dp"
             android:background="@drawable/bug_list_background"
             android:visibility="invisible"
@@ -166,6 +166,7 @@
                 android:textStyle="bold"/>
 
             <Button
+                android:id="@+id/locationSelectorButton"
                 android:text="Seleziona località"
                 android:textAllCaps="false"
                 android:textAlignment="textStart"
@@ -177,7 +178,8 @@
                 android:layout_gravity="start"
                 android:background="@drawable/circle_shape3"
                 android:layout_marginLeft="25dp"
-                android:paddingLeft="8dp" />
+                android:paddingLeft="8dp"
+                android:onClick="onLocationSelectorButtonClick"/>
 
             <TextView
                 android:layout_width="wrap_content"

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BugFinder</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiZGF2Y3AiLCJhIjoiY2tiNm40ZjQyMDA5cDJyb2FuNzVqeHoyOSJ9.FRTn7dAFYQYVg5iBzIvB6A</string>
 </resources>

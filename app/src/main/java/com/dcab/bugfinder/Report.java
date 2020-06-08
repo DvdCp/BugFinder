@@ -1,13 +1,8 @@
 package com.dcab.bugfinder;
 
-import android.app.Dialog;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,12 +20,11 @@ public class Report extends AppCompatActivity
     private ArrayAdapter arrayAdapter;
     private ListView listView;
     private ArrayList bugList;
-    private Button specieButton, reportButton;
+    private Button specieButton;
+    private Button locationButton;
+    private Button dateButton;
     private LinearLayout formNewReportBottom;
     private ImageView sparisciTutto;
-    private TextView okTW;
-    private SQLiteDatabase db;
-    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,6 +33,7 @@ public class Report extends AppCompatActivity
         setContentView(R.layout.new_report);
 
         // ----- lista di prova
+        //---- bisogno implementare il retrieve da una BD
         listView = findViewById(R.id.bug_selection_list);
         bugList = new ArrayList();
         bugList.add("prova1");
@@ -47,6 +42,15 @@ public class Report extends AppCompatActivity
         bugList.add("prova4");
         bugList.add("prova5");
         bugList.add("prova6");
+        bugList.add("prova6");
+        bugList.add("prova6");
+        bugList.add("prova6");
+        bugList.add("prova6");
+        bugList.add("prova6");
+        bugList.add("prova6");
+        bugList.add("prova6");
+        bugList.add("prova6");
+        bugList.add("prova6");
 
         arrayAdapter = new ArrayAdapter(Report.this, R.layout.bug_list_item,R.id.item_tw,bugList);
         listView.setAdapter(arrayAdapter);
@@ -54,12 +58,6 @@ public class Report extends AppCompatActivity
         specieButton = findViewById(R.id.showSpecie);
         formNewReportBottom = findViewById(R.id.formNewReportBottom);
         sparisciTutto = findViewById(R.id.sparisciTutto);
-        reportButton = findViewById(R.id.reportButton);
-
-        //Database Part
-        dbHelper = new DatabaseHelper(this);
-
-        db = dbHelper.getReadableDatabase();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -90,58 +88,21 @@ public class Report extends AppCompatActivity
                 listView.setVisibility(View.GONE);
             }
         });
-
-        reportButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                sendReport();
-            }
-        });
     }
 
-
-    public void sendReport()
+    public void onLocationSelectorButtonClick(View view)
     {
-        //INSERIRE CODICE PER CATTURA PARAMETRI
-        //ContentValues values = new ContentValues();
-
-        /*values.put(SchemaDB.Tavola.COLUMN_NAME, nomeVariabile.getText().toString());
-        values.put(SchemaDB.Tavola.COLUMN_SURNAME, nomeVariabile.getText().toString());
-        values.put(SchemaDB.Tavola.COLUMN_EMAIL, nomeVariabile.getText().toString());
-        values.put(SchemaDB.Tavola.COLUMN_USERNAME, nomeVariabile.getText().toString());
-        values.put(SchemaDB.Tavola.COLUMN_PASSWORD, nomeVariabile.getText().toString());*/
-
-        //db.insert(SchemaDB.Tavola.TABLE_NAME, null, values);
-
-
-        final Dialog dialog = new Dialog(Report.this);
-        dialog.setContentView(R.layout.dialog_ok);
-        okTW = dialog.findViewById(R.id.okTW);
-        okTW.setText("Segnalazione inviata");
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setTitle("");
-        dialog.setCancelable(true);
-
-        new CountDownTimer(3000, 1000)
-        {
-            @Override
-            public void onTick(long millisUntilFinished) { }
-
-            @Override
-            public void onFinish() { dialog.dismiss(); }
-        }.start();
-
-        //now that the dialog is set up, it's time to show it
-        dialog.show();
+        Intent intent = new Intent(getApplicationContext(), LocationPicker.class);
+        startActivity(intent);
     }
 
-
-    public void backToPrevious(View v)
-    {
-        finish();
+    @Override
+    public void onBackPressed() {
+        if(listView.getVisibility() == View.VISIBLE)
+            sparisciTutto.callOnClick();
+        else
+            super.onBackPressed();
     }
 
+    public void backToPrevious(View v) { finish(); }
 }

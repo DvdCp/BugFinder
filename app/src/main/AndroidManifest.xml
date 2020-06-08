@@ -21,11 +21,7 @@
         </activity>
         <activity android:name=".BugBook">
         </activity>
-        <activity android:name=".Login">
-        </activity>
-        <activity android:name=".Register">
-        </activity>
-        <activity android:name=".Bug">
+        <activity android:name=".LocationPicker">
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -34,4 +30,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 </manifest>
