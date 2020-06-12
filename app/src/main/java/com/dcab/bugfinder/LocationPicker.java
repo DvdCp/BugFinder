@@ -41,13 +41,15 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
     private static final int DEACTIVATE_BACKGROUND_BLUR = -2;
 
     private FragmentTransaction transaction;
-    private RelativeLayout screen;
     private TextView locationInput;
     private LatLng selectedPlace;
     private Button selectButton;
     private String selectedPlaceString;
     private PlaceAutocompleteFragment autocompleteFragment;
     private RelativeLayout fragmentContainer;
+    private RelativeLayout screen;
+    private GoogleMap gMap;
+    private SupportMapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,8 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
     }
 
     public void initSearchFab(Bundle savedInstanceState) {
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(LocationPicker.this::onMapReady);
         locationInput = findViewById(R.id.localitaSelection);
         selectButton = findViewById(R.id.selezionaSpecie);
         screen = findViewById(R.id.screen_background);
@@ -67,8 +71,6 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
         locationInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                updateScreen(ACTIVATE_BACKGROUND_BLUR);
 
                 if (savedInstanceState == null) {
                     autocompleteFragment = PlaceAutocompleteFragment.newInstance(getString(R.string.mapbox_access_token));
@@ -81,7 +83,6 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
                     autocompleteFragment = (PlaceAutocompleteFragment)getSupportFragmentManager().findFragmentByTag(AUTOCOMPLETE_FRAGMENT_TAG);
                 }
 
-
                 autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
                     @Override
                     public void onPlaceSelected(CarmenFeature feature) {
@@ -91,8 +92,7 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
                         locationInput.setText(selectedPlaceString);
                         locationInput.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15f);
 
-                        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-                        mapFragment.getMapAsync(LocationPicker.this::onMapReady);
+                        onMapChange(gMap);
 
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.remove(autocompleteFragment).commit();
@@ -114,16 +114,18 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
+        gMap = googleMap;
         //Coordinates: SUD, OVEST - NORD, EST
-        LatLngBounds boundsItaly = new LatLngBounds(new LatLng(40.666397,10.172663), new LatLng(42.0914, 15.120292));
-        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        googleMap.setMinZoomPreference(2f);
+        gMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        gMap.setMinZoomPreference(5.5f);
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(41.981807, 12.0819104))); //pointing Rome
+    }
+
+    public void onMapChange(GoogleMap googleMap)
+    {
         googleMap.addMarker(new MarkerOptions().position(selectedPlace));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(selectedPlace));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(20),400, null);
-
-        // Constrain the camera target to the Adelaide bounds.
-        googleMap.setLatLngBoundsForCameraTarget(boundsItaly);
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(13),400, null);
     }
 
     public void onSelectButtonClick(View v)

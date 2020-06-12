@@ -75,15 +75,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         googleMap.setOnMarkerClickListener(MainActivity.this);
-        googleMap.setMinZoomPreference(2f);
+        googleMap.setMinZoomPreference(5.5f);
 
         googleMap.addMarker(new MarkerOptions().position(rome).title("Ciao1").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
         googleMap.addMarker(new MarkerOptions().position(ischia).title("Ciao4").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(rome));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(6),400, null);
+        //googleMap.animateCamera(CameraUpdateFactory.zoomTo(6),400, null);
 
         // Constrain the camera target to the Adelaide bounds.
-        googleMap.setLatLngBoundsForCameraTarget(boundsItaly);
+        //googleMap.setLatLngBoundsForCameraTarget(boundsItaly);
     }
 
 
