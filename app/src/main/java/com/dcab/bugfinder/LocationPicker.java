@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.content.Intent;
-import android.graphics.Color;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,12 +21,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
-import com.mapbox.geojson.Point;
 
 import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
+import com.mapbox.mapboxsdk.plugins.places.autocomplete.ui.PlaceAutocompleteFragment;
+import com.mapbox.mapboxsdk.plugins.places.autocomplete.ui.PlaceSelectionListener;
 
 /**
  * Use the places plugin to take advantage of Mapbox's location search ("geocoding") capabilities. The plugin
@@ -36,40 +36,77 @@ import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
 public class LocationPicker extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener{
 
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
+    private static final String AUTOCOMPLETE_FRAGMENT_TAG = "autocomplete_fragment_tag";
+    private static final int ACTIVATE_BACKGROUND_BLUR = -1;
+    private static final int DEACTIVATE_BACKGROUND_BLUR = -2;
 
-    private MapView mapView;
+    private FragmentTransaction transaction;
+    private RelativeLayout screen;
     private TextView locationInput;
     private LatLng selectedPlace;
     private Button selectButton;
     private String selectedPlaceString;
+    private PlaceAutocompleteFragment autocompleteFragment;
+    private RelativeLayout fragmentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seleziona_localita);
-        initSearchFab();
-
+        initSearchFab(savedInstanceState);
     }
 
-    private void initSearchFab() {
+    public void initSearchFab(Bundle savedInstanceState) {
         locationInput = findViewById(R.id.localitaSelection);
         selectButton = findViewById(R.id.selezionaSpecie);
+        screen = findViewById(R.id.screen_background);
+        fragmentContainer = findViewById(R.id.fragment_container);
 
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
         PlaceAutocomplete.clearRecentHistory(getApplicationContext());
         locationInput.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new PlaceAutocomplete.IntentBuilder()
-                        .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
-                        .placeOptions(PlaceOptions.builder()
-                                .country("IT")
-                                .backgroundColor(Color.parseColor("#EEEEEE"))
-                                .limit(10)
-                                .proximity(Point.fromLngLat(40.9397284,3.7186683))
-                                .build(PlaceOptions.MODE_CARDS))
-                        .build(LocationPicker.this);
-                startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+            public void onClick(View v) {
+
+                updateScreen(ACTIVATE_BACKGROUND_BLUR);
+
+                if (savedInstanceState == null) {
+                    autocompleteFragment = PlaceAutocompleteFragment.newInstance(getString(R.string.mapbox_access_token));
+
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.add(R.id.fragment_container, autocompleteFragment,AUTOCOMPLETE_FRAGMENT_TAG);
+                    transaction.commit();
+
+                } else {
+                    autocompleteFragment = (PlaceAutocompleteFragment)getSupportFragmentManager().findFragmentByTag(AUTOCOMPLETE_FRAGMENT_TAG);
+                }
+
+
+                autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                    @Override
+                    public void onPlaceSelected(CarmenFeature feature) {
+                        selectedPlace = new LatLng(feature.center().latitude(), feature.center().longitude());
+                        // this string will return to invoking activity
+                        selectedPlaceString = feature.placeName();
+                        locationInput.setText(selectedPlaceString);
+                        locationInput.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15f);
+
+                        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+                        mapFragment.getMapAsync(LocationPicker.this::onMapReady);
+
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.remove(autocompleteFragment).commit();
+                        updateScreen(DEACTIVATE_BACKGROUND_BLUR);
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.remove(autocompleteFragment).commit();
+                        updateScreen(DEACTIVATE_BACKGROUND_BLUR);
+                    }
+                });
+
             }
         });
     }
@@ -89,24 +126,6 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
         googleMap.setLatLngBoundsForCameraTarget(boundsItaly);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
-            // Retrieve selected location's CarmenFeature
-            CarmenFeature feature = PlaceAutocomplete.getPlace(data);
-            //getting coordinares of selected place
-            selectedPlace = new LatLng(feature.center().latitude(), feature.center().longitude());
-            // this string will return to invoking activity
-            selectedPlaceString = feature.placeName();
-            locationInput.setText(selectedPlaceString);
-            locationInput.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15f);
-
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this::onMapReady);
-        }
-    }
-
     public void onSelectButtonClick(View v)
     {
         Intent result = new Intent();
@@ -122,5 +141,18 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
     @Override
     public boolean onMarkerClick(Marker marker) {
         return false;
+    }
+
+    public void updateScreen(int command)
+    {
+        if (command == ACTIVATE_BACKGROUND_BLUR) {
+            screen.setAlpha(0.5f);
+            fragmentContainer.setVisibility(View.VISIBLE);
+        }
+        else if (command == DEACTIVATE_BACKGROUND_BLUR)
+        {
+            screen.setAlpha(1f);
+            fragmentContainer.setVisibility(View.INVISIBLE);
+        }
     }
 }

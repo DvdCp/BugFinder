@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".Register">
         </activity>
+        <activity android:name=".LocationPicker">
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDcPVroG2-vd64ALMy7XbF_Yu5mCKCHlrs"/>

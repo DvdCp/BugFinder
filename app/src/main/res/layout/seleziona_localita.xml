@@ -1,79 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RL1"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MapsActivity" />
-
     <RelativeLayout
-        android:id="@+id/RL2"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:background="@drawable/circle_shape"
-        android:layout_marginTop="-18dp">
+        android:id="@+id/screen_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            tools:context=".MapsActivity" />
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/backarrow"
-                android:onClick="backToPrevious" />
+        <RelativeLayout
+            android:id="@+id/RL2"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="@drawable/circle_shape"
+            android:layout_marginTop="-18dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/localitaSelection"
-                    android:hint="Località..."
-                    android:lines="1"
-                    android:textColorHint="#127429"
-                    android:textAllCaps="false"
-                    android:textAlignment="textStart"
-                    android:textColor="#127429"
-                    android:fontFamily="@font/poppins_medium"
-                    android:textSize="18dp"
-                    android:layout_width="260dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/circle_shape5"
-                    android:layout_marginLeft="25dp"
-                    android:paddingLeft="8dp"
-                    android:paddingTop="3dp"/>
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/backarrow"
+                    android:onClick="backToPrevious" />
 
-                <Button
-                    android:id="@+id/selezionaSpecie"
-                    android:text="Seleziona"
-                    android:textAllCaps="false"
-                    android:textAlignment="textStart"
-                    android:textColor="#fff"
-                    android:fontFamily="@font/poppins_medium"
-                    android:textSize="18dp"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/circle_shape6"
-                    android:paddingLeft="8dp"
-                    android:onClick="onSelectButtonClick"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:id="@+id/localitaSelection"
+                        android:hint="Località..."
+                        android:lines="1"
+                        android:textColorHint="#127429"
+                        android:textAllCaps="false"
+                        android:textAlignment="textStart"
+                        android:textColor="#127429"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="18dp"
+                        android:layout_width="260dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/circle_shape5"
+                        android:layout_marginLeft="25dp"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="3dp"/>
+
+                    <Button
+                        android:id="@+id/selezionaSpecie"
+                        android:text="Seleziona"
+                        android:textAllCaps="false"
+                        android:textAlignment="textStart"
+                        android:textColor="#fff"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="18dp"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/circle_shape6"
+                        android:paddingLeft="8dp"
+                        android:onClick="onSelectButtonClick"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="370dp"
+        android:layout_height="800dp"
+        android:visibility="invisible"
+        android:background="@color/mapbox_plugins_white"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>
