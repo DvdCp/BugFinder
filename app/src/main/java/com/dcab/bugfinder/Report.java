@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 public class Report extends AppCompatActivity
@@ -29,6 +31,8 @@ public class Report extends AppCompatActivity
     private Button dateButton;
     private LinearLayout formNewReportBottom;
     private ImageView sparisciTutto;
+    private LatLng selectedPlace;
+    private String selectedPlaceString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -98,6 +102,10 @@ public class Report extends AppCompatActivity
     public void onLocationSelectorButtonClick(View view)
     {
         Intent intent = new Intent(getApplicationContext(), LocationPicker.class);
+
+        intent.putExtra("selectedPlaceString",selectedPlaceString);
+        intent.putExtra("selectedPlace",selectedPlace);
+
         startActivityForResult(intent,LOCATION_REQUEST_CODE);
     }
 
@@ -105,8 +113,11 @@ public class Report extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == LOCATION_REQUEST_CODE && resultCode == RESULT_OK)
-            locationButton.setText(data.getStringExtra("selectedLocation"));
-
+        {
+            selectedPlaceString = data.getStringExtra("selectedPlaceString");
+            locationButton.setText(selectedPlaceString);
+            selectedPlace = data.getParcelableExtra("selectedPlace");
+        }
     }
 
     @Override

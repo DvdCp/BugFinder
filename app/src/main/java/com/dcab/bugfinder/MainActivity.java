@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int height = 70;
         int width = 70;
 
-        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.bug_rilevation);
+        BitmapDrawable bitmapdraw = (BitmapDrawable) getDrawable(R.drawable.bug_rilevation);
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
