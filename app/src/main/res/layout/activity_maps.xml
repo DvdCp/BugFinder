@@ -52,6 +52,17 @@
         android:layout_gravity="start"
         android:background="@drawable/green_sidebar_rounded_background">
 
+        <TextView
+            android:id="@+id/loginText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="#FFF"
+            android:text=""
+            android:textSize="20dp" />
+
         <!-- MENU -->
         <LinearLayout
             android:layout_width="wrap_content"

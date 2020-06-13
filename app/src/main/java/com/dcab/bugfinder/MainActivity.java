@@ -6,9 +6,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private TextView bugTypeFULL, bugName, bugOrdine, bugProvenienza, bugDescription, bugDifese;
+    private SharedPreferences sp;
+    private TextView bugTypeFULL, bugName, bugOrdine, bugProvenienza, bugDescription, bugDifese, loginText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,13 +42,37 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Retrieve the content view that renders the map.
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_maps);
+
+        sp = getSharedPreferences("login", MODE_PRIVATE);
+
+        if((sp.getBoolean("logged", false)) == true)
+            sp.edit().clear().commit();
+
         drawerLayout = findViewById(R.id.drawer_layout_main_screen);
         navigationView = findViewById(R.id.nav_view_side_menu);
+        loginText = findViewById(R.id.loginText);
+
+        loginText.setText("");
+
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this::onMapReady);
     }
+
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        if((sp.getBoolean("logged", false)) == true)
+        {
+            String nome = sp.getString("name", "");
+            loginText.setText("Ciao "+nome);
+        }
+    }
+
 
     // HANDLING BACK BUTTON
     @Override
@@ -55,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         else
             super.onBackPressed();
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap)

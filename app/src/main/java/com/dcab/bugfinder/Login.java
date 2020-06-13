@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -35,6 +36,12 @@ public class Login extends AppCompatActivity
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         leftArrow = findViewById(R.id.left_arrow);
+
+
+        sp = getSharedPreferences("login", MODE_PRIVATE);
+
+        if(sp.getBoolean("logged", false))
+            goToUserArea();
 
 
         //Listeners
@@ -114,7 +121,15 @@ public class Login extends AppCompatActivity
                 public void onTick(long millisUntilFinished) { }
 
                 @Override
-                public void onFinish() { dialog.dismiss(); onBackPressed(); }
+                public void onFinish()
+                {
+                    sp.edit().putBoolean("logged", true).apply();
+                    sp.edit().putString("name", nome).apply();
+                    sp.edit().putInt("id", cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[0]))).apply();
+
+                    dialog.dismiss();
+                    onBackPressed();
+                }
             }.start();
 
             //now that the dialog is set up, it's time to show it
@@ -127,11 +142,19 @@ public class Login extends AppCompatActivity
     }
 
 
+    public void goToUserArea()
+    {
+        return;
+    }
+
+
     public static void hideKeyboardFrom(Context context, View view)
     {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+
 
     private Button registerButton, loginButton;
     private EditText username, password;
@@ -139,5 +162,6 @@ public class Login extends AppCompatActivity
     private ImageView leftArrow;
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
+    private SharedPreferences sp;
 
 }
