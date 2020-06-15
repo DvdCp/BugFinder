@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 
 import com.mapbox.mapboxsdk.Mapbox;
@@ -70,7 +71,7 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
         screen = findViewById(R.id.screen_background);
         fragmentContainer = findViewById(R.id.fragment_container);
 
-        // checking if there are already a selected place. If there are, update map
+        // checking if there are already a selected place. If there are, these values will be used to update map
         selectedPlaceString = getIntent().getStringExtra("selectedPlaceString");
         selectedPlace = getIntent().getParcelableExtra("selectedPlace");
 
@@ -132,6 +133,7 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
         if(selectedPlace != null) {
             onMapChange(gMap);
             locationInput.setText(selectedPlaceString);
+            locationInput.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15f);
         }else
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(41.981807, 12.0819104))); //pointing Rome
 

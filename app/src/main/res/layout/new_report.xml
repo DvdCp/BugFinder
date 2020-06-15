@@ -85,7 +85,8 @@
                     android:textStyle="normal" />
 
                 <Button
-                    android:text="Scegli foto"
+                    android:text="Scegli Foto"
+                    android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="25dp"
                     android:layout_width="250dp"
@@ -93,7 +94,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/circle_shape2"
                     android:layout_marginTop="30dp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/poppins_medium" />
 
             </LinearLayout>
 
@@ -170,21 +171,23 @@
                     android:textSize="20dp"
                     android:textStyle="bold"/>
 
-                <Button
-                    android:id="@+id/locationSelectorButton"
-                    android:text="Seleziona località"
-                    android:textAllCaps="false"
-                    android:textAlignment="textStart"
-                    android:textColor="#127429"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:layout_width="250dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="start"
-                    android:background="@drawable/circle_shape3"
-                    android:layout_marginLeft="25dp"
-                    android:paddingLeft="8dp"
-                    android:onClick="onLocationSelectorButtonClick"/>
+            <Button
+                android:id="@+id/locationSelectorButton"
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:layout_gravity="start"
+                android:layout_marginLeft="25dp"
+                android:background="@drawable/circle_shape3"
+                android:lines="1"
+                android:maxLength="40"
+                android:onClick="onLocationSelectorButtonClick"
+                android:paddingLeft="8dp"
+                android:text="Seleziona località"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="#127429"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -228,6 +231,7 @@
                 android:textStyle="bold"/>
 
             <Button
+                android:id="@+id/datePickerButton"
                 android:text="gg/mm/aaaa"
                 android:textAllCaps="false"
                 android:textColor="#127429"
@@ -281,7 +285,7 @@
 
                 <EditText
                     android:layout_width="360dp"
-                    android:layout_height="100dp"
+                    android:layout_height="150dp"
                     android:background="@drawable/circle_shape3"
                     android:padding="8dp"
                     android:textColor="#127429"

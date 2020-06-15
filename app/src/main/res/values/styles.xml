@@ -1,14 +1,13 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/lightGreen</item>
+        <item name="colorAccent">@color/lightGreen</item>
     </style>
 
     <style name="AppTheme.Launcher">
@@ -26,5 +25,14 @@
         <item name="android:layout_width">360dp</item>
         <item name="android:layout_height">600dp</item>
     </style>
+
+    <style name="DatePicker1" parent="ThemeOverlay.MaterialComponents.Light">
+        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+        <item name="headerLayout">@color/lightGreen</item>
+    </style>
+
+    <color name="background">#FAFAFA</color>
 
 </resources>

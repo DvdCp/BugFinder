@@ -9,12 +9,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.util.ArrayList;
 
@@ -31,6 +36,7 @@ public class Report extends AppCompatActivity
     private Button dateButton;
     private LinearLayout formNewReportBottom;
     private ImageView sparisciTutto;
+    private RelativeLayout screen;
     private LatLng selectedPlace;
     private String selectedPlaceString;
 
@@ -65,8 +71,16 @@ public class Report extends AppCompatActivity
         listView.setAdapter(arrayAdapter);
 
         specieButton = findViewById(R.id.showSpecie);
+        dateButton = findViewById(R.id.datePickerButton);
         formNewReportBottom = findViewById(R.id.formNewReportBottom);
         sparisciTutto = findViewById(R.id.sparisciTutto);
+        screen = findViewById(R.id.RL1);
+
+        //MaterialDesign DatePicker
+        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
+        builder.setTitleText("Scegli una data");
+        builder.setTheme(R.style.DatePicker1);
+        final MaterialDatePicker materialDatePicker = builder.build();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,12 +103,37 @@ public class Report extends AppCompatActivity
             }
         });
 
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                materialDatePicker.show(getSupportFragmentManager(),"DATE_PICKER");
+                screen.setAlpha(0.5f);
+            }
+        });
+
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                dateButton.setText(materialDatePicker.getHeaderText());
+                screen.setAlpha(1f);
+            }
+        });
+
+        materialDatePicker.addOnNegativeButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            screen.setAlpha(1f);
+            }
+        });
+
         sparisciTutto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 specieButton.setBackground(getDrawable(R.drawable.circle_shape3));
                 formNewReportBottom.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
+                screen.setAlpha(1f);
+                getSupportFragmentManager().beginTransaction().remove(materialDatePicker).commit();
             }
         });
     }
