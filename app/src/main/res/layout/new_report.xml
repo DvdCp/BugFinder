@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
     <RelativeLayout
@@ -67,11 +68,14 @@
 
                 </LinearLayout>
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
+                    app:shapeAppearanceOverlay="@style/roundedImageView"
+                    android:id="@+id/takePhoto"
                     android:layout_width="216dp"
                     android:layout_height="133dp"
                     android:background="@drawable/group_3"
                     android:layout_gravity="center"
+                    android:scaleType="centerCrop"
                     android:layout_marginTop="25dp"/>
 
                 <TextView
@@ -85,6 +89,7 @@
                     android:textStyle="normal" />
 
                 <Button
+                    android:id="@+id/selectImageFromGallery"
                     android:text="Scegli Foto"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
@@ -306,7 +311,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:background="@drawable/circle_shape2"
+                android:background="@drawable/circle_shape2_no_border"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 android:textStyle="bold" />
