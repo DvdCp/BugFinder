@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ public class Login extends AppCompatActivity
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         leftArrow = findViewById(R.id.left_arrow);
-
+        errorLL = findViewById(R.id.errorLL);
 
         sp = getSharedPreferences("login", MODE_PRIVATE);
 
@@ -99,7 +100,6 @@ public class Login extends AppCompatActivity
 
         if(cursor != null && cursor.moveToFirst())
         {
-
             String nome = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[1]));
             String cognome = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[2]));
             String email = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[3]));
@@ -115,7 +115,7 @@ public class Login extends AppCompatActivity
             dialog.setTitle("");
             dialog.setCancelable(true);
 
-            new CountDownTimer(5000, 1000)
+            new CountDownTimer(3000, 1000)
             {
                 @Override
                 public void onTick(long millisUntilFinished) { }
@@ -125,6 +125,9 @@ public class Login extends AppCompatActivity
                 {
                     sp.edit().putBoolean("logged", true).apply();
                     sp.edit().putString("name", nome).apply();
+                    sp.edit().putString("surname", cognome).apply();
+                    sp.edit().putString("email", email).apply();
+                    sp.edit().putString("username", username).apply();
                     sp.edit().putInt("id", cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.columns[0]))).apply();
 
                     dialog.dismiss();
@@ -137,6 +140,7 @@ public class Login extends AppCompatActivity
 
             return cursor;
         } else {
+            errorLL.setVisibility(View.VISIBLE);
             return null;
         }
     }
@@ -160,6 +164,7 @@ public class Login extends AppCompatActivity
     private EditText username, password;
     private TextView okTW;
     private ImageView leftArrow;
+    private LinearLayout errorLL;
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
     private SharedPreferences sp;

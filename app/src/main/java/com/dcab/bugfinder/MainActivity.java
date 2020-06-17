@@ -1,6 +1,8 @@
 package com.dcab.bugfinder;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -8,11 +10,19 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +39,12 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 {
+
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private SharedPreferences sp;
-    private TextView bugTypeFULL, bugName, bugOrdine, bugProvenienza, bugDescription, bugDifese, loginText;
+    private LinearLayout user_area, reports, logout;
+    private TextView bugTypeFULL, bugName, bugOrdine, bugProvenienza, bugDescription, bugDifese, loginText, okTW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -67,15 +79,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if((sp.getBoolean("logged", false)) == true)
         {
+            drawerLayout.closeDrawer(GravityCompat.START);
             String nome = sp.getString("name", "");
             loginText.setText("Ciao "+nome);
+
+            reports = findViewById(R.id.reports);
+            logout = findViewById(R.id.logout);
+
+            reports.setVisibility(View.VISIBLE);
+            logout.setVisibility(View.VISIBLE);
         }
     }
 
 
     // HANDLING BACK BUTTON
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         if(drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else
@@ -120,7 +140,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (optionID)
         {
             case R.id.user_area:
-                login();
+                if((sp.getBoolean("logged", false)) == true)
+                {
+                    toUserArea();
+                } else {
+                    login();
+                }
                 break;
             case R.id.bug_book:
                 bugBook();
@@ -131,9 +156,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             case R.id.settings:
                 Toast.makeText(getApplicationContext(), "SETTINGS: "+optionID, Toast.LENGTH_LONG ).show();
                 break;
-
+            case R.id.reports:
+                toMyReports();
+                break;
+            case R.id.logout:
+                logout();
+                break;
         }
     }
+
 
     public void newReport(View v)
     {
@@ -157,6 +188,55 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         startActivity(intent);
     }
+
+
+    public void logout()
+    {
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_ok);
+        Log.d("DEBUG", "logout effettuato");
+        okTW = dialog.findViewById(R.id.okTW);
+        okTW.setText("Logout effettuato");
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setTitle("");
+        dialog.setCancelable(true);
+
+        new CountDownTimer(3000, 1000)
+        {
+            @Override
+            public void onTick(long millisUntilFinished) { }
+
+            @Override
+            public void onFinish()
+            {
+                dialog.dismiss();
+                sp.edit().clear().commit();
+                recreate();
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        }.start();
+
+        //now that the dialog is set up, it's time to show it
+        dialog.show();
+    }
+
+
+    public void toUserArea()
+    {
+        Intent intent = new Intent(getApplicationContext(), UserArea.class);
+
+        startActivity(intent);
+    }
+
+
+    public void toMyReports()
+    {
+        Intent intent = new Intent(getApplicationContext(), ListReports.class);
+        Log.d("DEBUG", "Start activity reports");
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onMarkerClick(Marker marker)

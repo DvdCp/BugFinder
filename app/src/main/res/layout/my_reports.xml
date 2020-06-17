@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="Registro Insetti"
+                    android:text="Le mie segnalazioni"
                     android:textColor="@color/lightGreen"
                     android:textSize="30dp"
                     android:textStyle="bold"
@@ -49,7 +49,7 @@
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/registroInsetti"
+        android:id="@+id/reports"
         android:layout_below="@id/RL2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

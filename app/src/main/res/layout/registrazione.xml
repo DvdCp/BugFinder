@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:text="Registrazione"
                     android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColor="#FFF"
                     android:textSize="40dp"
                     android:textStyle="bold"
@@ -78,6 +79,7 @@
                     android:hint="Nome"
                     android:layout_marginLeft="20dp"
                     android:inputType="text"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColorHint="@color/lightGreen"
                     android:textSize="23sp"
                     android:textStyle="bold"
@@ -115,6 +117,7 @@
                     android:hint="Cognome"
                     android:layout_marginLeft="20dp"
                     android:inputType="text"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColorHint="@color/lightGreen"
                     android:textSize="23sp"
                     android:textStyle="bold"
@@ -152,6 +155,7 @@
                     android:maxLength="25"
                     android:maxLines="1"
                     android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColorHint="@color/lightGreen"
                     android:textSize="23sp"
                     android:textStyle="bold"
@@ -189,6 +193,7 @@
                     android:hint="Username"
                     android:layout_marginLeft="20dp"
                     android:inputType="text"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColorHint="@color/lightGreen"
                     android:textSize="23sp"
                     android:textStyle="bold"
@@ -226,6 +231,7 @@
                     android:hint="Password"
                     android:layout_marginLeft="20dp"
                     android:inputType="text"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColorHint="@color/lightGreen"
                     android:textSize="23sp"
                     android:textStyle="bold"
@@ -241,10 +247,40 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/errorLL"
+            android:layout_below="@id/LL1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_feather_alert_triangle"/>
+
+            <TextView
+                android:id="@+id/errorTW3"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#D10000"
+                android:text="Registrazione non riuscita"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/registratiButton"
-            android:layout_below="@id/LL1"
+            android:layout_below="@id/errorLL"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_semibold"
             android:text="Registrati"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
@@ -253,7 +289,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/circle_shape2"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -269,15 +305,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/poppins_medium"
                 android:text="Sei già registrato?"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/lightGreen" />
 
             <TextView
+                android:id="@+id/accediTW"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
                 android:text=" Accedi"
                 android:textSize="20dp"
                 android:textStyle="bold"

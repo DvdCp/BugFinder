@@ -227,10 +227,10 @@ public class Report extends AppCompatActivity
         }
         else if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK)
         {
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                takePhotoImageView.setImageBitmap(imageBitmap);
-                takePhotoImageView.setBackground(getDrawable(R.drawable.group_3));
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            takePhotoImageView.setImageBitmap(imageBitmap);
+            takePhotoImageView.setBackground(getDrawable(R.drawable.group_3));
         }
         else if(requestCode == STORAGE_REQUEST_CODE && resultCode == RESULT_OK)
         {

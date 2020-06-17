@@ -17,15 +17,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Report">
-        </activity>
         <activity android:name=".BugBook">
+        </activity>
+        <activity android:name=".Report">
         </activity>
         <activity android:name=".Login">
         </activity>
         <activity android:name=".Register">
         </activity>
         <activity android:name=".LocationPicker">
+        </activity>
+        <activity android:name=".ListReports">
+        </activity>
+        <activity android:name=".UserArea">
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"

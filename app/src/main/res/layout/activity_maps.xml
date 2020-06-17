@@ -58,13 +58,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:layout_marginLeft="15dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/poppins_semibold"
             android:textColor="#FFF"
             android:text=""
-            android:textSize="20dp" />
+            android:textSize="22dp" />
 
         <!-- MENU -->
         <LinearLayout
+            android:id="@+id/side_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -88,10 +89,35 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColor="#FFF"
                     android:text="Area Utente"
-                    android:textSize="30dp"/>
+                    android:textSize="28dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reports"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:onClick="onClickMenuItem">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/report"
+                    android:layout_marginRight="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="#FFF"
+                    android:text="Segnalazioni"
+                    android:textSize="28dp"/>
 
             </LinearLayout>
 
@@ -112,10 +138,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins_semibold"
                     android:text="Registro Insetti"
                     android:textColor="#FFF"
-                    android:textSize="29dp" />
+                    android:textSize="28dp" />
 
             </LinearLayout>
 
@@ -137,9 +163,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cerca Insetto"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColor="#FFF"
-                    android:textSize="30dp" />
+                    android:textSize="28dp" />
 
             </LinearLayout>
 
@@ -161,7 +187,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Impostazioni"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="#FFF"
+                    android:textSize="28dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:onClick="onClickMenuItem"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/logout2"
+                    android:layout_marginRight="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Logout"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColor="#FFF"
                     android:textSize="30dp" />
 
