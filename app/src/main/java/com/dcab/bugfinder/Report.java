@@ -2,15 +2,20 @@ package com.dcab.bugfinder;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,7 +43,7 @@ public class Report extends AppCompatActivity
     public static int LOCATION_REQUEST_CODE = 2;
     private static final int CAMERA_REQUEST_CODE = 3;
     private static final int STORAGE_REQUEST_CODE = 4;
-    private static final int GALLERY_REQUEST_CODE = 5;
+    private static final int NOTE_ACTIVITY_REQUEST_CODE = 5;
 
     private ArrayAdapter arrayAdapter;
     private ListView listView;
@@ -53,6 +58,14 @@ public class Report extends AppCompatActivity
     private RelativeLayout screen;
     private LatLng selectedPlace;
     private String selectedPlaceString;
+    private MaterialDatePicker materialDatePicker;
+    private LinearLayout imageMissingError;
+    private LinearLayout locationMissingError;
+    private LinearLayout dateMissingError;
+    private boolean isPhotoSelected;
+    private boolean isLocationSelected;
+    private boolean isDateSelected;
+    private TextView optionalNotesTW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,10 +75,23 @@ public class Report extends AppCompatActivity
 
         // ----- lista di prova
         //---- bisogno implementare il retrieve da una BD
+        specieButton = findViewById(R.id.showSpecie);
+        dateButton = findViewById(R.id.datePickerButton);
+        formNewReportBottom = findViewById(R.id.formNewReportBottom);
+        sparisciTutto = findViewById(R.id.sparisciTutto);
+        screen = findViewById(R.id.RL1);
         listView = findViewById(R.id.bug_selection_list);
         locationButton = findViewById(R.id.locationSelectorButton);
         takePhotoImageView = findViewById(R.id.takePhoto);
         selectImagerFromGalleryButton = findViewById(R.id.selectImageFromGallery);
+        imageMissingError = findViewById(R.id.ImageMissingErrorLL);
+        locationMissingError = findViewById(R.id.LocationMissingErrorLL);
+        dateMissingError = findViewById(R.id.DateMissingErrorLL);
+        optionalNotesTW = findViewById(R.id.optionalNotesTW);
+        isPhotoSelected = false;
+        isLocationSelected = false;
+        isDateSelected = false;
+
         bugList = new ArrayList();
         bugList.add("prova1");
         bugList.add("prova2");
@@ -86,17 +112,11 @@ public class Report extends AppCompatActivity
         arrayAdapter = new ArrayAdapter(Report.this, R.layout.bug_list_item,R.id.item_tw,bugList);
         listView.setAdapter(arrayAdapter);
 
-        specieButton = findViewById(R.id.showSpecie);
-        dateButton = findViewById(R.id.datePickerButton);
-        formNewReportBottom = findViewById(R.id.formNewReportBottom);
-        sparisciTutto = findViewById(R.id.sparisciTutto);
-        screen = findViewById(R.id.RL1);
-
         //MaterialDesign DatePicker
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
         builder.setTitleText("Scegli una data");
         builder.setTheme(R.style.DatePicker1);
-        final MaterialDatePicker materialDatePicker = builder.build();
+        materialDatePicker = builder.build();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -122,6 +142,7 @@ public class Report extends AppCompatActivity
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideErrors();
                 materialDatePicker.show(getSupportFragmentManager(),"DATE_PICKER");
                 screen.setAlpha(0.5f);
             }
@@ -132,6 +153,8 @@ public class Report extends AppCompatActivity
             public void onPositiveButtonClick(Object selection) {
                 dateButton.setText(materialDatePicker.getHeaderText());
                 screen.setAlpha(1f);
+                isDateSelected = true;
+                dateMissingError.setVisibility(View.GONE);
             }
         });
 
@@ -142,14 +165,19 @@ public class Report extends AppCompatActivity
             }
         });
 
+        materialDatePicker.addOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                    screen.setAlpha(1f);
+            }
+        });
+
         sparisciTutto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 specieButton.setBackground(getDrawable(R.drawable.circle_shape3));
                 formNewReportBottom.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
-                screen.setAlpha(1f);
-                getSupportFragmentManager().beginTransaction().remove(materialDatePicker).commit();
             }
         });
 
@@ -164,6 +192,8 @@ public class Report extends AppCompatActivity
                 {
                     requestCameraPermission();
                 }
+
+                hideErrors();
             }
         });
 
@@ -180,10 +210,22 @@ public class Report extends AppCompatActivity
                     {
                         requestStoragePermission();
                     }
+
+                    hideErrors();
                 }
             }
         });
-    }
+
+        //******** SCROLLABLE TEXT VIEW SETTINGS FOR "OPTIONAL NOTES" ********
+        optionalNotesTW.setMovementMethod(new ScrollingMovementMethod());
+        optionalNotesTW.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                optionalNotesTW.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+}
 
     public void onLocationSelectorButtonClick(View view)
     {
@@ -193,37 +235,20 @@ public class Report extends AppCompatActivity
         intent.putExtra("selectedPlace",selectedPlace);
 
         startActivityForResult(intent,LOCATION_REQUEST_CODE);
-    }
-
-    private void dispatchSelectPictureIntent()
-    {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-
-        if (photoPickerIntent.resolveActivity(getPackageManager()) != null)
-        {
-            startActivityForResult(photoPickerIntent, STORAGE_REQUEST_CODE);
-        }
-
-    }
-
-    private void dispatchTakePictureIntent() {
-
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
-        }
+        hideErrors();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == LOCATION_REQUEST_CODE && resultCode == RESULT_OK)
         {
             selectedPlaceString = data.getStringExtra("selectedPlaceString");
             locationButton.setText(selectedPlaceString);
             selectedPlace = data.getParcelableExtra("selectedPlace");
+            isLocationSelected = true;
+            locationMissingError.setVisibility(View.GONE);
         }
         else if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK)
         {
@@ -231,6 +256,8 @@ public class Report extends AppCompatActivity
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             takePhotoImageView.setImageBitmap(imageBitmap);
             takePhotoImageView.setBackground(getDrawable(R.drawable.group_3));
+            isPhotoSelected = true;
+            imageMissingError.setVisibility(View.GONE);
         }
         else if(requestCode == STORAGE_REQUEST_CODE && resultCode == RESULT_OK)
         {
@@ -238,22 +265,83 @@ public class Report extends AppCompatActivity
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), selectedImage);
                 takePhotoImageView.setImageBitmap(bitmap);
+                isPhotoSelected = true;
+                imageMissingError.setVisibility(View.GONE);
             } catch (IOException e) {
                 Log.i("TAG", "Some exception " + e);
             }
         }
+        else if(requestCode == NOTE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK)
+        {
+                String notes = data.getStringExtra("optionalNotes");
+                optionalNotesTW.setText(notes);
+        }
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         if(listView.getVisibility() == View.VISIBLE)
             sparisciTutto.callOnClick();
         else
             super.onBackPressed();
     }
 
-    public void backToPrevious(View v) { finish(); }
+    public void backToPrevious(View v)
+    {
+        finish();
+    }
 
+    public void sendReport(View v)
+    {
+        if(!isPhotoSelected)
+            imageMissingError.setVisibility(View.VISIBLE);
+        if(!isLocationSelected)
+            locationMissingError.setVisibility(View.VISIBLE);
+        if(!isDateSelected)
+            dateMissingError.setVisibility(View.VISIBLE);
+        if(isPhotoSelected && isLocationSelected && isDateSelected)
+        {
+            final Dialog dialog = new Dialog(Report.this);
+            dialog.setContentView(R.layout.dialog_ok);
+            final TextView okTW = dialog.findViewById(R.id.okTW);
+            okTW.setText("Segnalazione Inviata");
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.setTitle("");
+            dialog.setCancelable(true);
+            dialog.show();
+
+            new CountDownTimer(2000, 1000)
+            {
+                @Override
+                public void onTick(long millisUntilFinished) { }
+
+                @Override
+                public void onFinish()
+                {
+                    dialog.dismiss();
+                    onBackPressed();
+                }
+            }.start();
+        }
+    }
+
+    public void dispatchNoteActivity(View v)
+    {
+        Intent noteActivityIntent = new Intent(getApplicationContext(), OptionalNote.class);
+        String notes = optionalNotesTW.getText().toString();
+        noteActivityIntent.putExtra("optionalNotes",notes);
+        startActivityForResult(noteActivityIntent,NOTE_ACTIVITY_REQUEST_CODE);
+        hideErrors();
+    }
+
+    private void hideErrors()
+    {
+        locationMissingError.setVisibility(View.GONE);
+        imageMissingError.setVisibility(View.GONE);
+        dateMissingError.setVisibility(View.GONE);
+    }
 
     //*************** PERMISSION REQUEST METHODS ***************
     private void requestCameraPermission()        //ask user to accept or decline the permission
@@ -317,6 +405,28 @@ public class Report extends AppCompatActivity
         else // this is the case which user tap for the first time the button to gain the permission
         {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
+        }
+    }
+
+    //*************** DISPATCHING INTENTS METHODS ***************
+    private void dispatchSelectPictureIntent()
+    {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+
+        if (photoPickerIntent.resolveActivity(getPackageManager()) != null)
+        {
+            startActivityForResult(photoPickerIntent, STORAGE_REQUEST_CODE);
+        }
+
+    }
+
+    private void dispatchTakePictureIntent()
+    {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
         }
     }
 }

@@ -145,12 +145,10 @@ public class Login extends AppCompatActivity
         }
     }
 
-
     public void goToUserArea()
     {
         return;
     }
-
 
     public static void hideKeyboardFrom(Context context, View view)
     {

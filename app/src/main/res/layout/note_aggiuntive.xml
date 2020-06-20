@@ -26,31 +26,32 @@
 
     <EditText
         android:id="@+id/note_aggiuntive"
-        android:layout_below="@+id/action_bar_note_aggiuntive"
         android:layout_width="match_parent"
         android:layout_height="550dp"
-        android:layout_marginTop="-15dp"
-        android:textColor="#127429"
-        android:textColorHint="#127429"
-        android:textSize="20dp"
-        android:paddingLeft="8dp"
-        android:textStyle="bold"
-        android:hint="Ciao a tutti sono l'uomo ragno"
+        android:layout_above="@+id/confirm_button"
+        android:layout_below="@+id/action_bar_note_aggiuntive"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_medium"
         android:gravity="top|left"
-        android:fontFamily="@font/poppins_medium"/>
+        android:paddingLeft="8dp"
+        android:textColor="#127429"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <Button
-        android:layout_below="@id/note_aggiuntive"
+        android:id="@+id/confirm_button"
         android:text="Conferma"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="25dp"
         android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/circle_shape2"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/circle_shape2_no_border"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:onClick="onConfirmButtonClick"/>
 
 </RelativeLayout>

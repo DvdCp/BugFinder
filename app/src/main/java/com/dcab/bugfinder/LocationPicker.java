@@ -71,7 +71,7 @@ public class LocationPicker extends AppCompatActivity implements OnMapReadyCallb
         screen = findViewById(R.id.screen_background);
         fragmentContainer = findViewById(R.id.fragment_container);
 
-        // checking if there are already a selected place. If there are, these values will be used to update map
+        // these values will be checked. If there are not null, they are used to update the map
         selectedPlaceString = getIntent().getStringExtra("selectedPlaceString");
         selectedPlace = getIntent().getParcelableExtra("selectedPlace");
 
