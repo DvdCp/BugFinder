@@ -26,11 +26,9 @@
         <item name="android:layout_height">600dp</item>
     </style>
 
-    <style name="DatePicker1" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
-        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
-        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+    <style name="DatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="headerLayout">@color/lightGreen</item>
+        <item name="colorOnError">@color/redAlert</item>
     </style>
 
     <style name="roundedImageView" parent="">

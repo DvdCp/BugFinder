@@ -115,7 +115,7 @@ public class Report extends AppCompatActivity
         //MaterialDesign DatePicker
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
         builder.setTitleText("Scegli una data");
-        builder.setTheme(R.style.DatePicker1);
+        builder.setTheme(R.style.DatePicker);
         materialDatePicker = builder.build();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
