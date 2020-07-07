@@ -32,9 +32,10 @@
         android:layout_below="@+id/action_bar_note_aggiuntive"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/poppins_medium"
-        android:gravity="top|left"
+        android:gravity="start"
         android:paddingLeft="8dp"
-        android:textColor="#127429"
+        android:textColor="@color/darkGreen"
+        android:background="@android:color/transparent"
         android:textSize="20dp"
         android:textStyle="bold" />
 
