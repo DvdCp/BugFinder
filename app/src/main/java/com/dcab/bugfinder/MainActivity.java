@@ -25,7 +25,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
@@ -111,8 +110,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
-        LatLngBounds boundsItaly = new LatLngBounds(new LatLng(40.666397,10.172663), new LatLng(42.0914, 15.120292)); //SUD, OVEST - NORD, EST
-
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         googleMap.setOnMarkerClickListener(MainActivity.this);
         googleMap.setMinZoomPreference(5.5f);
@@ -120,12 +117,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.addMarker(new MarkerOptions().position(rome).title("Ciao1").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
         googleMap.addMarker(new MarkerOptions().position(ischia).title("Ciao4").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(rome));
-        //googleMap.animateCamera(CameraUpdateFactory.zoomTo(6),400, null);
-
-        // Constrain the camera target to the Adelaide bounds.
-        //googleMap.setLatLngBoundsForCameraTarget(boundsItaly);
     }
-
 
     public void onClickMenuItem(View v)
     {
@@ -144,10 +136,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 bugBook();
                 break;
             case R.id.search_bug:
-                Toast.makeText(getApplicationContext(), "SEARCH BUG: "+optionID, Toast.LENGTH_LONG ).show();
+                Toast.makeText(getApplicationContext(), "FUNZIONALITA' IN SVILUPPO", Toast.LENGTH_LONG ).show();
                 break;
             case R.id.settings:
-                Toast.makeText(getApplicationContext(), "SETTINGS: "+optionID, Toast.LENGTH_LONG ).show();
+                Toast.makeText(getApplicationContext(), "FUNZIONALITA' IN SVILUPPO", Toast.LENGTH_LONG ).show();
                 break;
             case R.id.reports:
                 toMyReports();
@@ -167,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(intent);
     }
 
-
     public void bugBook()
     {
         Intent intent = new Intent(getApplicationContext(), BugBook.class);
@@ -175,14 +166,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(intent);
     }
 
-
     public void login()
     {
         Intent intent = new Intent(getApplicationContext(), Login.class);
 
         startActivity(intent);
     }
-
 
     public void logout()
     {
@@ -223,14 +212,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(intent);
     }
 
-
     public void toMyReports()
     {
         Intent intent = new Intent(getApplicationContext(), ListReports.class);
         Log.d("DEBUG", "Start activity reports");
         startActivity(intent);
     }
-
 
     @Override
     public boolean onMarkerClick(Marker marker)
@@ -289,7 +276,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         return true;
     }
-
 
     BugUIBean[] bugBeans = {
             new BugUIBean("Ciao1", "Ciao1", "Ciao1", "Ciao1", "Ciao1", "Ciao1"),

@@ -2,8 +2,6 @@ package com.dcab.bugfinder;
 
 import android.provider.BaseColumns;
 
-import java.sql.Date;
-
 public class SchemaDBBugs
 {
 

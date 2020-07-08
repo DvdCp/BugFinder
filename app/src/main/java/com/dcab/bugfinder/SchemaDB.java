@@ -7,7 +7,6 @@ public class SchemaDB
 
     public SchemaDB(){}
 
-
     public static abstract class Tavola implements BaseColumns
     {
         public static final String TABLE_NAME = "users";
