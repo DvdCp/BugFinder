@@ -1,4 +1,4 @@
-package com.dcab.bugfinder;
+package com.dcab.bugfinder.database;
 
 import android.provider.BaseColumns;
 
@@ -17,5 +17,4 @@ public class SchemaDB
         public static final String COLUMN_USERNAME = "username";
         public static final String COLUMN_PASSWORD = "password";
     }
-
 }

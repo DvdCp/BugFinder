@@ -1,4 +1,4 @@
-package com.dcab.bugfinder;
+package com.dcab.bugfinder.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

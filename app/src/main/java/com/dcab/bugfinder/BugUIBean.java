@@ -2,7 +2,6 @@ package com.dcab.bugfinder;
 
 public class BugUIBean
 {
-
     public BugUIBean(){}
 
     public BugUIBean(String nome, String type, String description, String ordine, String provenienza, String difese)

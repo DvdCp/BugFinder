@@ -1,4 +1,4 @@
-package com.dcab.bugfinder;
+package com.dcab.bugfinder.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,7 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private final Context context;
 
 
-    static final String[] columns = {
+    public static final String[] columns = {
             SchemaDB.Tavola._ID,
             SchemaDB.Tavola.COLUMN_NAME,
             SchemaDB.Tavola.COLUMN_SURNAME,
@@ -38,22 +38,18 @@ public class DatabaseHelper extends SQLiteOpenHelper
         this.context = context;
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(CREATE_CMD);
     }
 
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { /*necessary override*/   }
-
 
     public void deleteDatabase()
     {
         Log.d("DEBUG","Deleting database "+ SchemaDB.Tavola.TABLE_NAME);
         context.deleteDatabase(SchemaDB.Tavola.TABLE_NAME);
     }
-
 }

@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (optionID)
         {
             case R.id.user_area:
-                if((sp.getBoolean("logged", false)) == true)
+                if( (sp.getBoolean("logged", false)) )
                 {
                     toUserArea();
                 } else {
@@ -154,9 +154,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void newReport(View v)
     {
         // controllare se l'utente è loggato
-        Intent intent = new Intent(getApplicationContext(), Report.class);
+        if( (sp.getBoolean("logged", false)) )
+        {
+            Intent intent = new Intent(getApplicationContext(), Report.class);
+            startActivity(intent);
+        } else {
+            login();
+        }
 
-        startActivity(intent);
     }
 
     public void bugBook()

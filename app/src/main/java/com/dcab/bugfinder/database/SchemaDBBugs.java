@@ -1,4 +1,4 @@
-package com.dcab.bugfinder;
+package com.dcab.bugfinder.database;
 
 import android.provider.BaseColumns;
 
@@ -6,7 +6,6 @@ public class SchemaDBBugs
 {
 
     public SchemaDBBugs(){}
-
 
     public static abstract class Tavola implements BaseColumns
     {
@@ -18,5 +17,4 @@ public class SchemaDBBugs
         public static final String COLUMN_DATE = "data";
         public static final String COLUMN_NOTE = "note";
     }
-
 }
