@@ -16,6 +16,7 @@ public class SchemaDBSegnalazioni
         public static final String COLUMN_LOCATION = "localita";
         public static final String COLUMN_DATE = "data";
         public static final String COLUMN_NOTE = "note";
+        public static final String COLUMN_STATUS = "status";
         public static final String COLUMN_USER = "user";
     }
 }

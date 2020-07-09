@@ -3,10 +3,14 @@ package com.dcab.bugfinder;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -30,10 +34,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.dcab.bugfinder.database.DatabaseHelper;
+import com.dcab.bugfinder.database.DatabaseHelperSegnalazioni;
+import com.dcab.bugfinder.database.SchemaDB;
+import com.dcab.bugfinder.database.SchemaDBSegnalazioni;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -66,12 +75,21 @@ public class Report extends AppCompatActivity
     private boolean isLocationSelected;
     private boolean isDateSelected;
     private TextView optionalNotesTW;
+    private SharedPreferences sp;
+    private SQLiteDatabase db;
+    private DatabaseHelperSegnalazioni dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_report);
+
+        sp = getSharedPreferences("login", MODE_PRIVATE);
+
+        dbHelper = new DatabaseHelperSegnalazioni(this);
+
+        db = dbHelper.getWritableDatabase();
 
         // ----- lista di prova
         //---- bisogno implementare il retrieve da una BD
@@ -302,28 +320,55 @@ public class Report extends AppCompatActivity
             dateMissingError.setVisibility(View.VISIBLE);
         if(isPhotoSelected && isLocationSelected && isDateSelected)
         {
-            final Dialog dialog = new Dialog(Report.this);
-            dialog.setContentView(R.layout.dialog_ok);
-            final TextView okTW = dialog.findViewById(R.id.okTW);
-            okTW.setText("Segnalazione Inviata");
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.setTitle("");
-            dialog.setCancelable(true);
-            dialog.show();
+            // catching user_id and compressing image
+            int user_id = sp.getInt("id", 0);
 
-            new CountDownTimer(2000, 1000)
+            Bitmap pic = ((BitmapDrawable) takePhotoImageView.getDrawable()).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            pic.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            // saving the report in the DB
+            ContentValues values = new ContentValues();
+
+            values.put(SchemaDBSegnalazioni.Tavola.COLUMN_IMAGE, byteArray);
+            values.put(SchemaDBSegnalazioni.Tavola.COLUMN_TYPE, specieButton.getText().toString());
+            values.put(SchemaDBSegnalazioni.Tavola.COLUMN_LOCATION, locationButton.getText().toString());
+            values.put(SchemaDBSegnalazioni.Tavola.COLUMN_DATE, dateButton.getText().toString());
+            values.put(SchemaDBSegnalazioni.Tavola.COLUMN_NOTE, optionalNotesTW.getText().toString());
+            values.put(SchemaDBSegnalazioni.Tavola.COLUMN_STATUS, "0");
+            values.put(SchemaDBSegnalazioni.Tavola.COLUMN_USER, user_id);
+
+            if( db.insert(SchemaDBSegnalazioni.Tavola.TABLE_NAME, null, values) != -1)
             {
-                @Override
-                public void onTick(long millisUntilFinished) { }
+                final Dialog dialog = new Dialog(Report.this);
+                dialog.setContentView(R.layout.dialog_ok);
+                final TextView okTW = dialog.findViewById(R.id.okTW);
+                okTW.setText("Segnalazione Inviata");
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.setTitle("");
+                dialog.setCancelable(true);
+                dialog.show();
 
-                @Override
-                public void onFinish()
+                new CountDownTimer(2000, 1000)
                 {
-                    dialog.dismiss();
-                    onBackPressed();
-                }
-            }.start();
+                    @Override
+                    public void onTick(long millisUntilFinished) { }
+
+                    @Override
+                    public void onFinish()
+                    {
+                        dialog.dismiss();
+                        onBackPressed();
+                    }
+                }.start();
+            }
+            else
+            {
+                Log.e("ErrorDB","ERROR DURING SAVING REPORT IN DB");
+            }
+
         }
     }
 

@@ -1,6 +1,7 @@
 package com.dcab.bugfinder;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,7 @@ public class ReportsAdapter extends ArrayAdapter<ReportBean>
 
         Log.d("DEBUG","Report= "+report);
 
-        logo.setBackgroundResource(R.drawable.insetto1);
+        logo.setBackground(report.getImmagine());
         specieTW.setText(report.getSpecie());
         dataTW.setText(report.getData());
         localitaTW.setText(report.getLuogo());
@@ -67,6 +68,7 @@ public class ReportsAdapter extends ArrayAdapter<ReportBean>
     private LayoutInflater inflater;
     private ArrayList<ReportBean> registroReports;
     private TextView specieTW, dataTW, localitaTW, statusTW;
+    private Drawable immagineInsetto;
     private ImageView logo;
 
 }

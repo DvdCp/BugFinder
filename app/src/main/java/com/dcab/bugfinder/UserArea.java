@@ -59,7 +59,6 @@ public class UserArea extends AppCompatActivity
     public void toMyReports()
     {
         Intent intent = new Intent(getApplicationContext(), ListReports.class);
-
         startActivity(intent);
     }
 

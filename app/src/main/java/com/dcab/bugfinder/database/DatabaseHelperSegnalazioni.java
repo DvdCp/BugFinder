@@ -12,13 +12,14 @@ public class DatabaseHelperSegnalazioni extends SQLiteOpenHelper
     private final Context context;
 
 
-    static final String[] columns = {
+    public static final String[] columns = {
             SchemaDBSegnalazioni.Tavola.COLUMN_ID,
             SchemaDBSegnalazioni.Tavola.COLUMN_IMAGE,
             SchemaDBSegnalazioni.Tavola.COLUMN_TYPE,
             SchemaDBSegnalazioni.Tavola.COLUMN_LOCATION,
             SchemaDBSegnalazioni.Tavola.COLUMN_DATE,
             SchemaDBSegnalazioni.Tavola.COLUMN_NOTE,
+            SchemaDBSegnalazioni.Tavola.COLUMN_STATUS,
             SchemaDBSegnalazioni.Tavola.COLUMN_USER
     };
 
@@ -26,11 +27,13 @@ public class DatabaseHelperSegnalazioni extends SQLiteOpenHelper
     private static final String CREATE_CMD =
                     "CREATE TABLE "+SchemaDBSegnalazioni.Tavola.TABLE_NAME+" ("
                     + SchemaDBSegnalazioni.Tavola._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + SchemaDBSegnalazioni.Tavola.COLUMN_IMAGE + " BITMAP NOT NULL, "
+                    + SchemaDBSegnalazioni.Tavola.COLUMN_IMAGE + " BLOB NOT NULL, "
                     + SchemaDBSegnalazioni.Tavola.COLUMN_TYPE + " TEXT NOT NULL,"
+                    + SchemaDBSegnalazioni.Tavola.COLUMN_LOCATION + " TEXT NOT NULL,"
                     + SchemaDBSegnalazioni.Tavola.COLUMN_DATE + " TEXT NOT NULL, "
                     + SchemaDBSegnalazioni.Tavola.COLUMN_NOTE + " TEXT NOT NULL, "
-                    + SchemaDBSegnalazioni.Tavola.COLUMN_USER + " INT NOT NULL);";
+                    + SchemaDBSegnalazioni.Tavola.COLUMN_STATUS + " TEXT NOT NULL, "
+                    + SchemaDBSegnalazioni.Tavola.COLUMN_USER + " TEXT NOT NULL);";
 
 
     public DatabaseHelperSegnalazioni(Context context)
