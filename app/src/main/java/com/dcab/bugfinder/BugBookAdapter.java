@@ -36,7 +36,7 @@ public class BugBookAdapter extends ArrayAdapter<BugUIBean>
 
         Log.d("DEBUG","Bug= "+bug);
 
-        logo.setImageResource(R.drawable.icon_awesome_bug);
+        logo.setImageResource(bug.getImageId());
         nome.setText(bug.getNome());
 
         nome.setTag(position);
