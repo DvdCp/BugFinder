@@ -14,7 +14,6 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dcab.bugfinder.database.DatabaseHelper;
 import com.dcab.bugfinder.database.DatabaseHelperSegnalazioni;
 
 import java.util.ArrayList;
